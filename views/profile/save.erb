@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<%#include "profile.h" %>
+<% tfetch(QVariantMap, profile); %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Editing Profile</h1>
+
+<%== formTag(urla("save", profile["userId"]), Tf::Post) %>
+  <p>
+    <label>User ID<br /><input type="text" name="profile[userId]" value="<%= profile["userId"] %>" readonly="readonly" /></label>
+  </p>
+  <p>
+    <label>First Name<br /><input type="text" name="profile[firstName]" value="<%= profile["firstName"] %>" /></label>
+  </p>
+  <p>
+    <label>Last Name<br /><input type="text" name="profile[lastName]" value="<%= profile["lastName"] %>" /></label>
+  </p>
+  <p>
+    <label>Nickname<br /><input type="text" name="profile[nickname]" value="<%= profile["nickname"] %>" /></label>
+  </p>
+  <p>
+    <label>Email<br /><input type="text" name="profile[email]" value="<%= profile["email"] %>" /></label>
+  </p>
+  <p>
+    <label>Password<br /><input type="text" name="profile[password]" value="<%= profile["password"] %>" /></label>
+  </p>
+  <p>
+    <label>Date Joined<br /><input type="text" name="profile[dateJoined]" value="<%= profile["dateJoined"] %>" /></label>
+  </p>
+  <p>
+    <label>Is Active<br /><input type="text" name="profile[isActive]" value="<%= profile["isActive"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Save" />
+  </p>
+</form>
+
+<%== linkTo("Show", urla("show", profile["userId"])) %> |
+<%== linkTo("Back", urla("index")) %>
+</body>
+</html>

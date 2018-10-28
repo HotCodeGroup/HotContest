@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<%#include "problem.h" %>
+<% tfetch(Problem, problem); %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Showing Problem</h1>
+<dt>Problem ID</dt><dd><%= problem.problemId() %></dd><br />
+<dt>Title</dt><dd><%= problem.title() %></dd><br />
+<dt>Description</dt><dd><%= problem.description() %></dd><br />
+<dt>Time Limit</dt><dd><%= problem.timeLimit() %></dd><br />
+<dt>Memory Limit</dt><dd><%= problem.memoryLimit() %></dd><br />
+<dt>Tries Left</dt><dd><%= problem.triesLeft() %></dd><br />
+<dt>Points</dt><dd><%= problem.points() %></dd><br />
+<dt>Penalty Try</dt><dd><%= problem.penaltyTry() %></dd><br />
+<dt>Penalty Time</dt><dd><%= problem.penaltyTime() %></dd><br />
+<dt>Contest ID</dt><dd><%= problem.contestId() %></dd><br />
+<dt>Lock Revision</dt><dd><%= problem.lockRevision() %></dd><br />
+
+<%== linkTo("Edit", urla("save", problem.problemId())) %> |
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

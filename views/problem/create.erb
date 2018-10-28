@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<%#include "problem.h" %>
+<% tfetch(QVariantMap, problem); %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>New Problem</h1>
+
+<%== formTag(urla("create"), Tf::Post) %>
+  <p>
+    <label>Title<br /><input name="problem[title]" value="<%= problem["title"] %>" /></label>
+  </p>
+  <p>
+    <label>Description<br /><input name="problem[description]" value="<%= problem["description"] %>" /></label>
+  </p>
+  <p>
+    <label>Time Limit<br /><input name="problem[timeLimit]" value="<%= problem["timeLimit"] %>" /></label>
+  </p>
+  <p>
+    <label>Memory Limit<br /><input name="problem[memoryLimit]" value="<%= problem["memoryLimit"] %>" /></label>
+  </p>
+  <p>
+    <label>Tries Left<br /><input name="problem[triesLeft]" value="<%= problem["triesLeft"] %>" /></label>
+  </p>
+  <p>
+    <label>Points<br /><input name="problem[points]" value="<%= problem["points"] %>" /></label>
+  </p>
+  <p>
+    <label>Penalty Try<br /><input name="problem[penaltyTry]" value="<%= problem["penaltyTry"] %>" /></label>
+  </p>
+  <p>
+    <label>Penalty Time<br /><input name="problem[penaltyTime]" value="<%= problem["penaltyTime"] %>" /></label>
+  </p>
+  <p>
+    <label>Contest ID<br /><input name="problem[contestId]" value="<%= problem["contestId"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

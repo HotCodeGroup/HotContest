@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<%#include "submit.h" %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h1>Listing Submit</h1>
+
+<%== linkTo("Create a new Submit", urla("create")) %><br />
+<br />
+<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
+  <tr>
+    <th>Submit ID</th>
+    <th>Resp Code</th>
+    <th>Error Test</th>
+    <th>Time</th>
+    <th>Memory</th>
+    <th>Solution ID</th>
+  </tr>
+<% tfetch(QList<Submit>, submitList); %>
+<% for (const auto &i : submitList) { %>
+  <tr>
+    <td><%= i.submitId() %></td>
+    <td><%= i.respCode() %></td>
+    <td><%= i.errorTest() %></td>
+    <td><%= i.time() %></td>
+    <td><%= i.memory() %></td>
+    <td><%= i.solutionId() %></td>
+    <td>
+      <%== linkTo("Show", urla("show", i.submitId())) %>
+      <%== linkTo("Edit", urla("save", i.submitId())) %>
+      <%== linkTo("Remove", urla("remove", i.submitId()), Tf::Post, "confirm('Are you sure?')") %>
+    </td>
+  </tr>
+<% } %>
+</table>
+
+</body>
+</html>

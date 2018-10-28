@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<%#include "test.h" %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h1>Listing Test</h1>
+
+<%== linkTo("Create a new Test", urla("create")) %><br />
+<br />
+<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
+  <tr>
+    <th>Test ID</th>
+    <th>Input</th>
+    <th>Output</th>
+    <th>Problem ID</th>
+  </tr>
+<% tfetch(QList<Test>, testList); %>
+<% for (const auto &i : testList) { %>
+  <tr>
+    <td><%= i.testId() %></td>
+    <td><%= i.input() %></td>
+    <td><%= i.output() %></td>
+    <td><%= i.problemId() %></td>
+    <td>
+      <%== linkTo("Show", urla("show", i.testId())) %>
+      <%== linkTo("Edit", urla("save", i.testId())) %>
+      <%== linkTo("Remove", urla("remove", i.testId()), Tf::Post, "confirm('Are you sure?')") %>
+    </td>
+  </tr>
+<% } %>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<%#include "testsubmit.h" %>
+<% tfetch(TestSubmit, testSubmit); %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Showing Test Submit</h1>
+<dt>Test Submit ID</dt><dd><%= testSubmit.testSubmitId() %></dd><br />
+<dt>Verdict</dt><dd><%= testSubmit.verdict() %></dd><br />
+<dt>Time</dt><dd><%= testSubmit.time() %></dd><br />
+<dt>Memory</dt><dd><%= testSubmit.memory() %></dd><br />
+<dt>Test ID</dt><dd><%= testSubmit.testId() %></dd><br />
+<dt>Submit ID</dt><dd><%= testSubmit.submitId() %></dd><br />
+<dt>Lock Revision</dt><dd><%= testSubmit.lockRevision() %></dd><br />
+
+<%== linkTo("Edit", urla("save", testSubmit.testSubmitId())) %> |
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<%#include "message.h" %>
+<% tfetch(QVariantMap, message); %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Editing Message</h1>
+
+<%== formTag(urla("save", message["messageId"]), Tf::Post) %>
+  <p>
+    <label>Message ID<br /><input type="text" name="message[messageId]" value="<%= message["messageId"] %>" readonly="readonly" /></label>
+  </p>
+  <p>
+    <label>Text<br /><input type="text" name="message[text]" value="<%= message["text"] %>" /></label>
+  </p>
+  <p>
+    <label>Time Stamp<br /><input type="text" name="message[timeStamp]" value="<%= message["timeStamp"] %>" /></label>
+  </p>
+  <p>
+    <label>Author ID<br /><input type="text" name="message[authorId]" value="<%= message["authorId"] %>" /></label>
+  </p>
+  <p>
+    <label>Contest ID<br /><input type="text" name="message[contestId]" value="<%= message["contestId"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Save" />
+  </p>
+</form>
+
+<%== linkTo("Show", urla("show", message["messageId"])) %> |
+<%== linkTo("Back", urla("index")) %>
+</body>
+</html>

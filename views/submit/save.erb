@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<%#include "submit.h" %>
+<% tfetch(QVariantMap, submit); %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Editing Submit</h1>
+
+<%== formTag(urla("save", submit["submitId"]), Tf::Post) %>
+  <p>
+    <label>Submit ID<br /><input type="text" name="submit[submitId]" value="<%= submit["submitId"] %>" readonly="readonly" /></label>
+  </p>
+  <p>
+    <label>Resp Code<br /><input type="text" name="submit[respCode]" value="<%= submit["respCode"] %>" /></label>
+  </p>
+  <p>
+    <label>Error Test<br /><input type="text" name="submit[errorTest]" value="<%= submit["errorTest"] %>" /></label>
+  </p>
+  <p>
+    <label>Time<br /><input type="text" name="submit[time]" value="<%= submit["time"] %>" /></label>
+  </p>
+  <p>
+    <label>Memory<br /><input type="text" name="submit[memory]" value="<%= submit["memory"] %>" /></label>
+  </p>
+  <p>
+    <label>Solution ID<br /><input type="text" name="submit[solutionId]" value="<%= submit["solutionId"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Save" />
+  </p>
+</form>
+
+<%== linkTo("Show", urla("show", submit["submitId"])) %> |
+<%== linkTo("Back", urla("index")) %>
+</body>
+</html>

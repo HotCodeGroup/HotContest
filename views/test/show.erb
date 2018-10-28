@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<%#include "test.h" %>
+<% tfetch(Test, test); %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Showing Test</h1>
+<dt>Test ID</dt><dd><%= test.testId() %></dd><br />
+<dt>Input</dt><dd><%= test.input() %></dd><br />
+<dt>Output</dt><dd><%= test.output() %></dd><br />
+<dt>Problem ID</dt><dd><%= test.problemId() %></dd><br />
+<dt>Lock Revision</dt><dd><%= test.lockRevision() %></dd><br />
+
+<%== linkTo("Edit", urla("save", test.testId())) %> |
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<%#include "contest.h" %>
+<% tfetch(QVariantMap, contest); %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>New Contest</h1>
+
+<%== formTag(urla("create"), Tf::Post) %>
+  <p>
+    <label>Title<br /><input name="contest[title]" value="<%= contest["title"] %>" /></label>
+  </p>
+  <p>
+    <label>Description<br /><input name="contest[description]" value="<%= contest["description"] %>" /></label>
+  </p>
+  <p>
+    <label>Start Time<br /><input name="contest[startTime]" value="<%= contest["startTime"] %>" /></label>
+  </p>
+  <p>
+    <label>Finish Time<br /><input name="contest[finishTime]" value="<%= contest["finishTime"] %>" /></label>
+  </p>
+  <p>
+    <label>Is Private<br /><input name="contest[isPrivate]" value="<%= contest["isPrivate"] %>" /></label>
+  </p>
+  <p>
+    <label>Is Active<br /><input name="contest[isActive]" value="<%= contest["isActive"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

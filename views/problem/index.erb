@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<%#include "problem.h" %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h1>Listing Problem</h1>
+
+<%== linkTo("Create a new Problem", urla("create")) %><br />
+<br />
+<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
+  <tr>
+    <th>Problem ID</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Time Limit</th>
+    <th>Memory Limit</th>
+    <th>Tries Left</th>
+    <th>Points</th>
+    <th>Penalty Try</th>
+    <th>Penalty Time</th>
+    <th>Contest ID</th>
+  </tr>
+<% tfetch(QList<Problem>, problemList); %>
+<% for (const auto &i : problemList) { %>
+  <tr>
+    <td><%= i.problemId() %></td>
+    <td><%= i.title() %></td>
+    <td><%= i.description() %></td>
+    <td><%= i.timeLimit() %></td>
+    <td><%= i.memoryLimit() %></td>
+    <td><%= i.triesLeft() %></td>
+    <td><%= i.points() %></td>
+    <td><%= i.penaltyTry() %></td>
+    <td><%= i.penaltyTime() %></td>
+    <td><%= i.contestId() %></td>
+    <td>
+      <%== linkTo("Show", urla("show", i.problemId())) %>
+      <%== linkTo("Edit", urla("save", i.problemId())) %>
+      <%== linkTo("Remove", urla("remove", i.problemId()), Tf::Post, "confirm('Are you sure?')") %>
+    </td>
+  </tr>
+<% } %>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<%#include "invitation.h" %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h1>Listing Invitation</h1>
+
+<%== linkTo("Create a new Invitation", urla("create")) %><br />
+<br />
+<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
+  <tr>
+    <th>Invitation ID</th>
+    <th>State</th>
+    <th>Sender ID</th>
+    <th>Addresse ID</th>
+    <th>Contest ID</th>
+  </tr>
+<% tfetch(QList<Invitation>, invitationList); %>
+<% for (const auto &i : invitationList) { %>
+  <tr>
+    <td><%= i.invitationId() %></td>
+    <td><%= i.state() %></td>
+    <td><%= i.senderId() %></td>
+    <td><%= i.addresseId() %></td>
+    <td><%= i.contestId() %></td>
+    <td>
+      <%== linkTo("Show", urla("show", i.invitationId())) %>
+      <%== linkTo("Edit", urla("save", i.invitationId())) %>
+      <%== linkTo("Remove", urla("remove", i.invitationId()), Tf::Post, "confirm('Are you sure?')") %>
+    </td>
+  </tr>
+<% } %>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<%#include "invitation.h" %>
+<% tfetch(Invitation, invitation); %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Showing Invitation</h1>
+<dt>Invitation ID</dt><dd><%= invitation.invitationId() %></dd><br />
+<dt>State</dt><dd><%= invitation.state() %></dd><br />
+<dt>Sender ID</dt><dd><%= invitation.senderId() %></dd><br />
+<dt>Addresse ID</dt><dd><%= invitation.addresseId() %></dd><br />
+<dt>Contest ID</dt><dd><%= invitation.contestId() %></dd><br />
+<dt>Lock Revision</dt><dd><%= invitation.lockRevision() %></dd><br />
+
+<%== linkTo("Edit", urla("save", invitation.invitationId())) %> |
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>
