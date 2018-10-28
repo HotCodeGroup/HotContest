@@ -26,3 +26,61 @@ LINE 1: PRAGMA synchronous=NORMAL
 2018-10-28 17:42:38  [8072] (Query failed) [ERROR:  permission denied for relation contest
 (42501)] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active","lock_revision" FROM "contest" t0
 2018-10-28 17:42:38  [8072] [COMMIT Failed] [databaseId:0]
+2018-10-29 00:13:25  [14099] (Query failed) [ERROR:  syntax error at or near "PRAGMA"
+LINE 1: PRAGMA journal_mode=WAL
+        ^
+(42601)] PRAGMA journal_mode=WAL
+2018-10-29 00:13:25  [14099] (Query failed) [ERROR:  syntax error at or near "PRAGMA"
+LINE 1: PRAGMA foreign_keys=ON
+        ^
+(42601)] PRAGMA foreign_keys=ON
+2018-10-29 00:13:25  [14099] (Query failed) [ERROR:  syntax error at or near "PRAGMA"
+LINE 1: PRAGMA busy_timeout=5000
+        ^
+(42601)] PRAGMA busy_timeout=5000
+2018-10-29 00:13:25  [14099] (Query failed) [ERROR:  syntax error at or near "PRAGMA"
+LINE 1: PRAGMA synchronous=NORMAL
+        ^
+(42601)] PRAGMA synchronous=NORMAL
+2018-10-29 00:13:25  [14099] [BEGIN] [databaseId:0]
+2018-10-29 00:13:25  [14099] (Query failed) [ERROR:  permission denied for relation contest
+(42501)] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active","lock_revision" FROM "contest" t0
+2018-10-29 00:13:25  [14099] [COMMIT Failed] [databaseId:0]
+2018-10-29 00:13:55  [14171] [BEGIN] [databaseId:0]
+2018-10-29 00:13:55  [14171] (Query failed) [ERROR:  permission denied for relation contest
+(42501)] INSERT INTO contest ("title", "description", "start_time", "finish_time", "is_private", "is_active", "lock_revision") VALUES ('Test1', 'asdasdas', NULL, NULL, TRUE, TRUE, 1)
+2018-10-29 00:13:55  [14171] [COMMIT Failed] [databaseId:0]
+2018-10-29 00:17:50  [14750] [BEGIN] [databaseId:0]
+2018-10-29 00:17:50  [14750] (Query failed) [ERROR:  permission denied for relation contest
+(42501)] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active","lock_revision" FROM "contest" t0
+2018-10-29 00:17:50  [14750] [COMMIT Failed] [databaseId:0]
+2018-10-29 00:17:56  [14750] [BEGIN] [databaseId:0]
+2018-10-29 00:17:56  [14750] (Query failed) [ERROR:  permission denied for relation contest
+(42501)] INSERT INTO contest ("title", "description", "start_time", "finish_time", "is_private", "is_active", "lock_revision") VALUES ('Test1', 'asdasdas', NULL, NULL, TRUE, TRUE, 1)
+2018-10-29 00:17:56  [14750] [COMMIT Failed] [databaseId:0]
+2018-10-29 00:22:00  [15141] [BEGIN] [databaseId:0]
+2018-10-29 00:22:00  [15141] (Query failed) [ERROR:  permission denied for relation contest
+(42501)] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active","lock_revision" FROM "contest" t0
+2018-10-29 00:22:00  [15141] [COMMIT Failed] [databaseId:0]
+2018-10-29 00:22:16  [15180] [BEGIN] [databaseId:0]
+2018-10-29 00:22:16  [15180] (Query failed) [ERROR:  permission denied for relation contest
+(42501)] INSERT INTO contest ("title", "description", "start_time", "finish_time", "is_private", "is_active", "lock_revision") VALUES ('Test1', 'adssasda', NULL, NULL, TRUE, TRUE, 1)
+2018-10-29 00:22:16  [15180] [COMMIT Failed] [databaseId:0]
+2018-10-29 00:30:48  [16136] [BEGIN] [databaseId:0]
+2018-10-29 00:30:48  [16136] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0
+2018-10-29 00:30:48  [16136] [COMMIT] [databaseId:0]
+2018-10-29 00:31:06  [16193] [BEGIN] [databaseId:0]
+2018-10-29 00:31:06  [16193] INSERT INTO contest ("title", "description", "start_time", "finish_time", "is_private", "is_active") VALUES ('Test1', 'asdasdas', NULL, NULL, TRUE, TRUE)
+2018-10-29 00:31:06  [16193] [COMMIT] [databaseId:0]
+2018-10-29 00:31:06  [16193] [BEGIN] [databaseId:0]
+2018-10-29 00:31:06  [16193] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0 WHERE t0."contest_id"=1 LIMIT 1
+2018-10-29 00:31:06  [16193] [COMMIT] [databaseId:0]
+2018-10-29 00:31:09  [16193] [BEGIN] [databaseId:0]
+2018-10-29 00:31:09  [16193] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0
+2018-10-29 00:31:09  [16193] [COMMIT] [databaseId:0]
+2018-10-29 00:31:11  [16193] [BEGIN] [databaseId:0]
+2018-10-29 00:31:11  [16193] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0 WHERE t0."contest_id"=1 LIMIT 1
+2018-10-29 00:31:11  [16193] [COMMIT] [databaseId:0]
+2018-10-29 00:31:13  [16193] [BEGIN] [databaseId:0]
+2018-10-29 00:31:13  [16193] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0
+2018-10-29 00:31:13  [16193] [COMMIT] [databaseId:0]
