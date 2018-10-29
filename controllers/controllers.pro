@@ -13,8 +13,12 @@ OBJECTS_DIR = .obj/
 
 include(../appbase.pri)
 
-HEADERS += applicationcontroller.h
-SOURCES += applicationcontroller.cpp
+HEADERS += applicationcontroller.h \
+    scorescontroller.h \
+    participantscontroller.h
+SOURCES += applicationcontroller.cpp \
+    scorescontroller.cpp \
+    participantscontroller.cpp
 HEADERS += contestcontroller.h
 SOURCES += contestcontroller.cpp
 HEADERS += invitationcontroller.h

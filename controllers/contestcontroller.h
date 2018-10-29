@@ -11,11 +11,12 @@ public:
     ContestController() : ApplicationController() {}
 
 public slots:
-    void index();
     void details(const QString &contestId);
     void create();
-    void save(const QString &contestId);
-    void remove(const QString &contestId);
+    void edit(const QString &contestId);
+    void leave(const QString &contestId);
+
+    void list();
 };
 
 #endif // CONTESTCONTROLLER_H

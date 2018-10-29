@@ -11,11 +11,12 @@ public:
     ProblemController() : ApplicationController() {}
 
 public slots:
-    void index();
-    void show(const QString &problemId);
-    void create();
-    void save(const QString &problemId);
-    void remove(const QString &problemId);
+    void list(const QString &contestId);
+    void create(const QString &contestId);
+
+    void details(const QString &contestId, const QString &problemId);
+    void edit(const QString &contestId, const QString &problemId);
+    void remove(const QString &contestId, const QString &problemId);
 };
 
 #endif // PROBLEMCONTROLLER_H

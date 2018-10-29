@@ -1,22 +1,26 @@
 #include "invitationcontroller.h"
 #include "invitation.h"
 
-
-void InvitationController::index()
+/* Contest / Invitations Collection / View a invitations list
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/invitations/view-a-invitations-list
+ *
+ */
+void InvitationController::list(const QString &contestId)
 {
     auto invitationList = Invitation::getAll();
     texport(invitationList);
     render();
 }
 
-void InvitationController::show(const QString &invitationId)
-{
-    auto invitation = Invitation::get(invitationId.toInt());
-    texport(invitation);
-    render();
-}
-
-void InvitationController::create()
+/* Contest / Invitations / Create Invitation
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/invitations/create-invitation
+ *
+ */
+void InvitationController::create(const QString &contestId)
 {
     switch (httpRequest().method()) {
     case Tf::Get:
@@ -45,7 +49,13 @@ void InvitationController::create()
     }
 }
 
-void InvitationController::save(const QString &invitationId)
+/* Contest / Invitations / Answer Invitation
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/invitations/answer-invitation
+ *
+ */
+void InvitationController::answer(const QString &contestId, const QString &invitationId)
 {
     switch (httpRequest().method()) {
     case Tf::Get: {
@@ -90,7 +100,13 @@ void InvitationController::save(const QString &invitationId)
     }
 }
 
-void InvitationController::remove(const QString &invitationId)
+/* Contest / Invitations / Remove Invitation
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/invitations/remove-invitation
+ *
+ */
+void InvitationController::remove(const QString &contestId, const QString &invitationId)
 {
     if (httpRequest().method() != Tf::Post) {
         renderErrorResponse(Tf::NotFound);

@@ -105,3 +105,27 @@ LINE 1: PRAGMA synchronous=NORMAL
 2018-10-29 11:06:26  [3139] [BEGIN] [databaseId:0]
 2018-10-29 11:06:26  [3139] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0 WHERE t0."contest_id"=2 LIMIT 1
 2018-10-29 11:06:26  [3139] [COMMIT] [databaseId:0]
+2018-10-29 11:09:40  [3720] [BEGIN] [databaseId:0]
+2018-10-29 11:09:40  [3720] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0
+2018-10-29 11:09:40  [3720] [COMMIT] [databaseId:0]
+2018-10-29 11:33:06  [6564] [BEGIN] [databaseId:0]
+2018-10-29 11:33:06  [6564] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0
+2018-10-29 11:33:06  [6564] [COMMIT] [databaseId:0]
+2018-10-29 11:33:12  [6564] [BEGIN] [databaseId:0]
+2018-10-29 11:33:12  [6564] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0 WHERE t0."contest_id"=1 LIMIT 1
+2018-10-29 11:33:12  [6564] [COMMIT] [databaseId:0]
+2018-10-29 11:33:22  [6608] [BEGIN] [databaseId:0]
+2018-10-29 11:33:22  [6608] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0 WHERE t0."contest_id"=1 LIMIT 1
+2018-10-29 11:33:22  [6608] [COMMIT] [databaseId:0]
+2018-10-29 11:33:59  [6771] [BEGIN] [databaseId:0]
+2018-10-29 11:33:59  [6771] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0 WHERE t0."contest_id"=1 LIMIT 1
+2018-10-29 11:33:59  [6771] [COMMIT] [databaseId:0]
+2018-10-29 12:39:01  [13621] [BEGIN] [databaseId:0]
+2018-10-29 12:39:01  [13621] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0 WHERE t0."contest_id"=1 LIMIT 1
+2018-10-29 12:39:01  [13621] [COMMIT] [databaseId:0]
+2018-10-29 12:39:02  [13621] [BEGIN] [databaseId:0]
+2018-10-29 12:39:03  [13621] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0
+2018-10-29 12:39:03  [13621] [COMMIT] [databaseId:0]
+2018-10-29 12:39:10  [13621] [BEGIN] [databaseId:0]
+2018-10-29 12:39:10  [13621] SELECT "contest_id","title","description","start_time","finish_time","is_private","is_active" FROM "contest" t0 WHERE t0."contest_id"=1 LIMIT 1
+2018-10-29 12:39:10  [13621] [COMMIT] [databaseId:0]

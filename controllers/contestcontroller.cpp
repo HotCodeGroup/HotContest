@@ -1,23 +1,38 @@
 #include "contestcontroller.h"
 #include "contest.h"
 
-
-void ContestController::index()
+/* Contest / Contests Collection / List All Contests
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/contests-collection/list-all-contests
+ *
+ */
+void ContestController::list()
 {
-    auto contestList = Contest::getAll();
-    texport(contestList);
-    render();
+    renderJson(Contest::getAllJson());
 }
 
+/* Contest / Contest / View a Contest Detail
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/contest/view-a-contest-detail
+ *
+ */
 void ContestController::details(const QString &contestId)
 {
     auto contest = Contest::get(contestId.toInt());
     auto contest_qvarmap = contest.toVariantMap();
-
     contest_qvarmap.erase(contest_qvarmap.find("lockRevision"));
+
     renderJson(contest_qvarmap);
 }
 
+/* Contest / Contests Collection / Create Contes
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/contests-collection/create-contest
+ *
+ */
 void ContestController::create()
 {
     switch (httpRequest().method()) {
@@ -47,7 +62,13 @@ void ContestController::create()
     }
 }
 
-void ContestController::save(const QString &contestId)
+/* Contest / Contest / Edit a Contest
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/contest/edit-a-contest
+ *
+ */
+void ContestController::edit(const QString &contestId)
 {
     switch (httpRequest().method()) {
     case Tf::Get: {
@@ -92,7 +113,13 @@ void ContestController::save(const QString &contestId)
     }
 }
 
-void ContestController::remove(const QString &contestId)
+/* Contest / Contest / Leave Contest
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/contest/leave-contest
+ *
+ */
+void ContestController::leave(const QString &contestId)
 {
     if (httpRequest().method() != Tf::Post) {
         renderErrorResponse(Tf::NotFound);

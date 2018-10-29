@@ -1,22 +1,39 @@
 #include "testcontroller.h"
 #include "test.h"
 
-
-void TestController::index()
+/* Contest / Tests Collection / View a tests collection
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/tests-collection/view-a-tests-collection
+ *
+ */
+void TestController::list(const QString &contestId, const QString &problemId)
 {
     auto testList = Test::getAll();
     texport(testList);
     render();
 }
 
-void TestController::show(const QString &testId)
+/* Contest / Test / Get a Test Detail
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/tests-collection/create-test
+ *
+ */
+void TestController::details(const QString &contestId, const QString &problemId, const QString &testId)
 {
     auto test = Test::get(testId.toInt());
     texport(test);
     render();
 }
 
-void TestController::create()
+/* Contest / Tests Collection / Create Test
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/test/edit-a-test
+ *
+ */
+void TestController::create(const QString &contestId, const QString &problemId)
 {
     switch (httpRequest().method()) {
     case Tf::Get:
@@ -45,7 +62,13 @@ void TestController::create()
     }
 }
 
-void TestController::save(const QString &testId)
+/* Contest / Test / Edit a Test
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/test/edit-a-test
+ *
+ */
+void TestController::edit(const QString &contestId, const QString &problemId, const QString &testId)
 {
     switch (httpRequest().method()) {
     case Tf::Get: {
@@ -90,7 +113,13 @@ void TestController::save(const QString &testId)
     }
 }
 
-void TestController::remove(const QString &testId)
+/* Contest / Test / Remove Test
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/test/remove-test
+ *
+ */
+void TestController::remove(const QString &contestId, const QString &problemId, const QString &testId)
 {
     if (httpRequest().method() != Tf::Post) {
         renderErrorResponse(Tf::NotFound);

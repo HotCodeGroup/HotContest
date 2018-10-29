@@ -1,22 +1,37 @@
 #include "profilecontroller.h"
 #include "profile.h"
 
-
-void ProfileController::index()
-{
-    auto profileList = Profile::getAll();
-    texport(profileList);
-    render();
-}
-
-void ProfileController::show(const QString &userId)
+/* Users / User / View a User Account Detail
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/users/user/view-a-user-account-detail
+ *
+ */
+void ProfileController::details(const QString &userId)
 {
     auto profile = Profile::get(userId.toInt());
     texport(profile);
     render();
 }
 
-void ProfileController::create()
+/* Users / Login / Login
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/users/login/login
+ *
+ */
+void ProfileController::login()
+{
+
+}
+
+/* Users / Registration / Register
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/users/registration/register
+ *
+ */
+void ProfileController::registration()
 {
     switch (httpRequest().method()) {
     case Tf::Get:
@@ -45,7 +60,13 @@ void ProfileController::create()
     }
 }
 
-void ProfileController::save(const QString &userId)
+/* Users / User / Edit a User Account
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/users/user/edit-a-user-account
+ *
+ */
+void ProfileController::edit(const QString &userId)
 {
     switch (httpRequest().method()) {
     case Tf::Get: {
@@ -90,7 +111,13 @@ void ProfileController::save(const QString &userId)
     }
 }
 
-void ProfileController::remove(const QString &userId)
+/* Users / Logout / Logout
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/users/user/logout
+ *
+ */
+void ProfileController::logout(const QString &userId)
 {
     if (httpRequest().method() != Tf::Post) {
         renderErrorResponse(Tf::NotFound);

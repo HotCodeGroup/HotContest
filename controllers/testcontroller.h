@@ -11,11 +11,12 @@ public:
     TestController() : ApplicationController() {}
 
 public slots:
-    void index();
-    void show(const QString &testId);
-    void create();
-    void save(const QString &testId);
-    void remove(const QString &testId);
+    void list(const QString &contestId, const QString &problemId);
+    void create(const QString &contestId, const QString &problemId);
+
+    void details(const QString &contestId, const QString &problemId, const QString &testId);
+    void edit(const QString &contestId, const QString &problemId, const QString &testId);
+    void remove(const QString &contestId, const QString &problemId, const QString &testId);
 };
 
 #endif // TESTCONTROLLER_H

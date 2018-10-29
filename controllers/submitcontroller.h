@@ -11,11 +11,9 @@ public:
     SubmitController() : ApplicationController() {}
 
 public slots:
-    void index();
-    void show(const QString &submitId);
-    void create();
-    void save(const QString &submitId);
-    void remove(const QString &submitId);
+    void list(const QString &contestId);
+    void details(const QString &contestId, const QString &submitId);
+    void send_solution(const QString &contestId);
 };
 
 #endif // SUBMITCONTROLLER_H

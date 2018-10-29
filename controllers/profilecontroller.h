@@ -11,11 +11,12 @@ public:
     ProfileController() : ApplicationController() {}
 
 public slots:
-    void index();
-    void show(const QString &userId);
-    void create();
-    void save(const QString &userId);
-    void remove(const QString &userId);
+    void login();
+    void registration();
+
+    void details(const QString &userId);
+    void edit(const QString &userId);
+    void logout(const QString &userId);
 };
 
 #endif // PROFILECONTROLLER_H

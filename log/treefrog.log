@@ -68,3 +68,36 @@
 2018-10-29 11:06:36 WARN  [3140] Reading a socket timed out after 10 seconds. Descriptor:26
 2018-10-29 11:07:51 INFO  [3030] TreeFrog application servers shutting down
 2018-10-29 11:07:51 INFO  [3030] TreeFrog application servers shutdown completed
+2018-10-29 11:09:30 INFO  [3623] TreeFrog Framework version 1.22.0
+2018-10-29 11:09:30 INFO  [3623] Execution environment: Qt 5.9.5 / Ubuntu 18.04.1 LTS
+2018-10-29 11:09:30 INFO  [3623] TreeFrog application servers started up.
+2018-10-29 11:09:50 WARN  [3721] Reading a socket timed out after 10 seconds. Descriptor:26
+2018-10-29 11:29:23 INFO  [3623] TreeFrog application servers shutting down
+2018-10-29 11:29:24 INFO  [3623] TreeFrog application servers shutdown completed
+2018-10-29 11:32:13 INFO  [6267] TreeFrog Framework version 1.22.0
+2018-10-29 11:32:13 INFO  [6267] Execution environment: Qt 5.9.5 / Ubuntu 18.04.1 LTS
+2018-10-29 11:32:13 INFO  [6267] TreeFrog application servers started up.
+2018-10-29 11:32:29 WARN  [6396] Reading a socket timed out after 10 seconds. Descriptor:26
+2018-10-29 11:32:48 INFO  [6267] TreeFrog application servers shutting down
+2018-10-29 11:32:55 WARN  [6449] Reading a socket timed out after 10 seconds. Descriptor:26
+2018-10-29 11:32:56 INFO  [6267] TreeFrog application servers shutdown completed
+2018-10-29 11:33:02 INFO  [6516] TreeFrog Framework version 1.22.0
+2018-10-29 11:33:02 INFO  [6516] Execution environment: Qt 5.9.5 / Ubuntu 18.04.1 LTS
+2018-10-29 11:33:02 INFO  [6516] TreeFrog application servers started up.
+2018-10-29 11:33:16 WARN  [6565] Reading a socket timed out after 10 seconds. Descriptor:26
+2018-10-29 11:33:32 WARN  [6609] Reading a socket timed out after 10 seconds. Descriptor:26
+2018-10-29 11:33:47 INFO  [6516] TreeFrog application servers shutting down
+2018-10-29 11:33:47 INFO  [6516] TreeFrog application servers shutdown completed
+2018-10-29 11:33:56 INFO  [6719] TreeFrog Framework version 1.22.0
+2018-10-29 11:33:56 INFO  [6719] Execution environment: Qt 5.9.5 / Ubuntu 18.04.1 LTS
+2018-10-29 11:33:56 INFO  [6719] TreeFrog application servers started up.
+2018-10-29 11:34:06 INFO  [6719] TreeFrog application servers shutting down
+2018-10-29 11:34:09 WARN  [6772] Reading a socket timed out after 10 seconds. Descriptor:26
+2018-10-29 11:34:09 INFO  [6719] TreeFrog application servers shutdown completed
+2018-10-29 12:38:41 INFO  [13502] TreeFrog Framework version 1.22.0
+2018-10-29 12:38:41 INFO  [13502] Execution environment: Qt 5.9.5 / Ubuntu 18.04.1 LTS
+2018-10-29 12:38:41 INFO  [13502] TreeFrog application servers started up.
+2018-10-29 12:38:58 WARN  [13605] Reading a socket timed out after 10 seconds. Descriptor:26
+2018-10-29 12:39:11 WARN  [13622] Reading a socket timed out after 10 seconds. Descriptor:26
+2018-10-29 12:39:20 INFO  [13502] TreeFrog application servers shutting down
+2018-10-29 12:39:20 INFO  [13502] TreeFrog application servers shutdown completed

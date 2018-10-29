@@ -11,11 +11,10 @@ public:
     MessageController() : ApplicationController() {}
 
 public slots:
-    void index();
-    void show(const QString &messageId);
-    void create();
-    void save(const QString &messageId);
-    void remove(const QString &messageId);
+    void list(const QString &contestId);
+    void create(const QString &contestId);
+    
+    void details(const QString &contestId, const QString &messageId);
 };
 
 #endif // MESSAGECONTROLLER_H

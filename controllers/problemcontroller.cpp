@@ -1,22 +1,39 @@
 #include "problemcontroller.h"
 #include "problem.h"
 
-
-void ProblemController::index()
+/* Contest / Problems Collection / View a problems collection
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/problems-collection/view-a-problems-collection
+ *
+ */
+void ProblemController::list(const QString &contestId)
 {
     auto problemList = Problem::getAll();
     texport(problemList);
     render();
 }
 
-void ProblemController::show(const QString &problemId)
+/* Contest / Problem / View a Problem Detail
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/problem/view-a-problem-detail
+ *
+ */
+void ProblemController::details(const QString &contestId, const QString &problemId)
 {
     auto problem = Problem::get(problemId.toInt());
     texport(problem);
     render();
 }
 
-void ProblemController::create()
+/* Contest / Problems Collection / Create Problem
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/problems-collection/create-problem
+ *
+ */
+void ProblemController::create(const QString &contestId)
 {
     switch (httpRequest().method()) {
     case Tf::Get:
@@ -45,7 +62,13 @@ void ProblemController::create()
     }
 }
 
-void ProblemController::save(const QString &problemId)
+/* Contest / Problem / Edit a Problem
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/problem/edit-a-problem
+ *
+ */
+void ProblemController::edit(const QString &contestId, const QString &problemId)
 {
     switch (httpRequest().method()) {
     case Tf::Get: {
@@ -90,7 +113,13 @@ void ProblemController::save(const QString &problemId)
     }
 }
 
-void ProblemController::remove(const QString &problemId)
+/* Contest / Problem / Remove Problem
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/problem/remove-problem
+ *
+ */
+void ProblemController::remove(const QString &contestId, const QString &problemId)
 {
     if (httpRequest().method() != Tf::Post) {
         renderErrorResponse(Tf::NotFound);

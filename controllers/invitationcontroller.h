@@ -11,11 +11,11 @@ public:
     InvitationController() : ApplicationController() {}
 
 public slots:
-    void index();
-    void show(const QString &invitationId);
-    void create();
-    void save(const QString &invitationId);
-    void remove(const QString &invitationId);
+    void list(const QString &contestId);
+    void create(const QString &contestId);
+
+    void answer(const QString &contestId, const QString &invitationId);
+    void remove(const QString &contestId, const QString &invitationId);
 };
 
 #endif // INVITATIONCONTROLLER_H

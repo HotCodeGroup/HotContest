@@ -1,22 +1,39 @@
 #include "messagecontroller.h"
 #include "message.h"
 
-
-void MessageController::index()
+/* Contest / Messages Collection / View a Messages list
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/message/view-a-messages-list
+ *
+ */
+void MessageController::list(const QString &contestId)
 {
     auto messageList = Message::getAll();
     texport(messageList);
     render();
 }
 
-void MessageController::show(const QString &messageId)
+/* Contest / Message / View a Message Detail
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/message/view-a-message-detail
+ *
+ */
+void MessageController::details(const QString &contestId, const QString &messageId)
 {
     auto message = Message::get(messageId.toInt());
     texport(message);
     render();
 }
 
-void MessageController::create()
+/* Contest / Messages Collection / Send Message
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#reference/contest/messages-collection/send-message
+ *
+ */
+void MessageController::create(const QString &contestId)
 {
     switch (httpRequest().method()) {
     case Tf::Get:
@@ -44,64 +61,6 @@ void MessageController::create()
         break;
     }
 }
-
-void MessageController::save(const QString &messageId)
-{
-    switch (httpRequest().method()) {
-    case Tf::Get: {
-        auto model = Message::get(messageId.toInt());
-        if (!model.isNull()) {
-            session().insert("message_lockRevision", model.lockRevision());
-            auto message = model.toVariantMap();
-            texport(message);
-            render();
-        }
-        break; }
-
-    case Tf::Post: {
-        QString error;
-        int rev = session().value("message_lockRevision").toInt();
-        auto model = Message::get(messageId.toInt(), rev);
-        
-        if (model.isNull()) {
-            error = "Original data not found. It may have been updated/removed by another transaction.";
-            tflash(error);
-            redirect(urla("save", messageId));
-            break;
-        }
-
-        auto message = httpRequest().formItems("message");
-        model.setProperties(message);
-        if (model.save()) {
-            QString notice = "Updated successfully.";
-            tflash(notice);
-            redirect(urla("show", model.messageId()));
-        } else {
-            error = "Failed to update.";
-            texport(error);
-            texport(message);
-            render();
-        }
-        break; }
-
-    default:
-        renderErrorResponse(Tf::NotFound);
-        break;
-    }
-}
-
-void MessageController::remove(const QString &messageId)
-{
-    if (httpRequest().method() != Tf::Post) {
-        renderErrorResponse(Tf::NotFound);
-        return;
-    }
-
-    auto message = Message::get(messageId.toInt());
-    message.remove();
-    redirect(urla("index"));
-}
-
 
 // Don't remove below this line
 T_DEFINE_CONTROLLER(MessageController)
