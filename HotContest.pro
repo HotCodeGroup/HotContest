@@ -47,4 +47,5 @@ HEADERS += \
     models/listofparticipants.h \
     models/listofsubmit.h \
     models/tableofresult.h \
-    models/shorttableofresult.h
+    models/shorttableofresult.h \
+    requester/requester.h
