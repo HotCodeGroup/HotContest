@@ -12,7 +12,7 @@ public:
 
 public slots:
     void index();
-    void show(const QString &contestId);
+    void details(const QString &contestId);
     void create();
     void save(const QString &contestId);
     void remove(const QString &contestId);

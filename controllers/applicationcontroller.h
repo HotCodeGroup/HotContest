@@ -13,6 +13,8 @@ public:
     virtual ~ApplicationController();
 
 public slots:
+    void index();
+    
     void staticInitialize();
     void staticRelease();
 

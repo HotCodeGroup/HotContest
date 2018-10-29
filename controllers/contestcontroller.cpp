@@ -9,11 +9,13 @@ void ContestController::index()
     render();
 }
 
-void ContestController::show(const QString &contestId)
+void ContestController::details(const QString &contestId)
 {
     auto contest = Contest::get(contestId.toInt());
-    texport(contest);
-    render();
+    auto contest_qvarmap = contest.toVariantMap();
+
+    contest_qvarmap.erase(contest_qvarmap.find("lockRevision"));
+    renderJson(contest_qvarmap);
 }
 
 void ContestController::create()

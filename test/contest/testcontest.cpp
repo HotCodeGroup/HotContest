@@ -19,8 +19,8 @@ void TestContest::create_data()
     QTest::addColumn<bool>("isPrivate");
     QTest::addColumn<bool>("isActive");
     // adding to test data
-    QTest::newRow("No1") << "test contest" << "contest for sosatels" << QDateTime(QDate(2007,3,14)) << QDateTime(QDate(2007,3,15)) << true << true;
-    QTest::newRow("No2") << "test contest 1" << "contest for sosatels" << QDateTime(QDate(2007,3,14)) << QDateTime(QDate(2007,3,15)) << true << true;
+    QTest::newRow("No1") << "test contest" << "contest for Technopark" << QDateTime(QDate(2007,3,14)) << QDateTime(QDate(2007,3,15)) << true << true;
+    QTest::newRow("No2") << "test contest 1" << "contest for Technopark" << QDateTime(QDate(2007,3,14)) << QDateTime(QDate(2007,3,15)) << true << true;
 }
 
 void TestContest::create()

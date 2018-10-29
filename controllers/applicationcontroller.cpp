@@ -8,6 +8,21 @@ ApplicationController::ApplicationController()
 ApplicationController::~ApplicationController()
 { }
 
+/* HotContest API Root / Retrieve the Entry Point
+ *
+ * Doc url:
+ * https://hotcode.docs.apiary.io/#introduction/description-of-usual-server-responses:
+ * 
+ */ 
+void ApplicationController::index()
+{
+    QVariantMap commands;
+    commands["contests_url"] = "/contests";
+    commands["users_url"] = "/users";
+
+    renderJson(commands);
+}
+
 void ApplicationController::staticInitialize()
 { }
 
