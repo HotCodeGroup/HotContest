@@ -11,15 +11,17 @@ public:
     int test_id {0};
     QString input;
     QString output;
-    int problem_id {0};
     int lock_revision {0};
+    int problem_id {0};
+    int in_problem_id {0};
 
     enum PropertyIndex {
         TestId = 0,
         Input,
         Output,
-        ProblemId,
         LockRevision,
+        ProblemId,
+        InProblemId,
     };
 
     int primaryKeyIndex() const override { return TestId; }
@@ -34,10 +36,12 @@ private:    /*** Don't modify below this line ***/
     T_DEFINE_PROPERTY(QString, input)
     Q_PROPERTY(QString output READ getoutput WRITE setoutput)
     T_DEFINE_PROPERTY(QString, output)
-    Q_PROPERTY(int problem_id READ getproblem_id WRITE setproblem_id)
-    T_DEFINE_PROPERTY(int, problem_id)
     Q_PROPERTY(int lock_revision READ getlock_revision WRITE setlock_revision)
     T_DEFINE_PROPERTY(int, lock_revision)
+    Q_PROPERTY(int problem_id READ getproblem_id WRITE setproblem_id)
+    T_DEFINE_PROPERTY(int, problem_id)
+    Q_PROPERTY(int in_problem_id READ getin_problem_id WRITE setin_problem_id)
+    T_DEFINE_PROPERTY(int, in_problem_id)
 };
 
 #endif // TESTOBJECT_H

@@ -1,5 +1,10 @@
+#include <TPaginator>
 #include "contestcontroller.h"
 #include "contest.h"
+
+int ContestController::items_per_page = 8;
+int ContestController::show_around = 5;
+
 
 /* Contest / Contests Collection / List All Contests
  *
@@ -9,7 +14,16 @@
  */
 void ContestController::list()
 {
-    renderJson(Contest::getAllJson());
+    bool ok = false;
+    int current = httpRequest().queryItemValue("page", "1").toInt(&ok);
+    if (!ok) {
+        current = 1;
+    }
+    int total = Contest::countPublic();
+    TPaginator pager(total, ContestController::items_per_page, ContestController::show_around);
+    pager.setCurrentPage(current);
+
+    renderJson(Contest::getJsonList(pager.itemCountPerPage(), pager.offset()));
 }
 
 /* Contest / Contest / View a Contest Detail
@@ -20,11 +34,18 @@ void ContestController::list()
  */
 void ContestController::details(const QString &contestId)
 {
-    auto contest = Contest::get(contestId.toInt());
-    auto contest_qvarmap = contest.toVariantMap();
-    contest_qvarmap.erase(contest_qvarmap.find("lockRevision"));
+    bool ok = false;
+    int contestIntID = contestId.toInt(&ok);
+    if (!ok) {
+        renderJson(QJsonObject());
+    }
 
-    renderJson(contest_qvarmap);
+    auto contestVariantMap = Contest::get(contestIntID).toVariantMapLight();
+    if (contestVariantMap["contestId"] == 0) {
+        renderJson(QJsonObject());
+    }
+
+    renderJson(contestVariantMap);
 }
 
 /* Contest / Contests Collection / Create Contes

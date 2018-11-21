@@ -8,7 +8,7 @@ class T_CONTROLLER_EXPORT ContestController : public ApplicationController
 {
     Q_OBJECT
 public:
-    ContestController() : ApplicationController() {}
+    ContestController() : ApplicationController()  {}
 
 public slots:
     void details(const QString &contestId);
@@ -17,6 +17,10 @@ public slots:
     void leave(const QString &contestId);
 
     void list();
+
+private:
+    static int items_per_page;
+    static int show_around;
 };
 
 #endif // CONTESTCONTROLLER_H

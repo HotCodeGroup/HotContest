@@ -17,8 +17,8 @@ ApplicationController::~ApplicationController()
 void ApplicationController::index()
 {
     QVariantMap commands;
-    commands["contests_url"] = "/contests";
-    commands["users_url"] = "/users";
+    commands["contestsURL"] = "/contests";
+    commands["usersURL"] = "/users";
 
     renderJson(commands);
 }

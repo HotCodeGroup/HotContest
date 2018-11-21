@@ -34,7 +34,12 @@ public:
     void setIsPrivate(const bool &isPrivate);
     bool isActive() const;
     void setIsActive(const bool &isActive);
+    int participantsCount() const;
+    void setParticipantsCount(int participantsCount);
     int lockRevision() const;
+    QStringList participants(int limit, int offset) const;
+//    QList<QVariantMap> scores(int limit, int offset) const;
+
     Contest &operator=(const Contest &other);
 
     bool create() override { return TAbstractModel::create(); }
@@ -42,13 +47,17 @@ public:
     bool save()   override { return TAbstractModel::save(); }
     bool remove() override { return TAbstractModel::remove(); }
 
-    static Contest create(const QString &title, const QString &description, const QDateTime &startTime, const QDateTime &finishTime, const bool &isPrivate, const bool &isActive);
+    QVariantMap toVariantMapLight() const;
+
+    static Contest create(const QString &title, const QString &description, const QDateTime &startTime, const QDateTime &finishTime, const bool &isPrivate, const bool &isActive, int participantsCount);
     static Contest create(const QVariantMap &values);
     static Contest get(int contestId);
     static Contest get(int contestId, int lockRevision);
     static int count();
+    static int countPublic();
     static QList<Contest> getAll();
     static QJsonArray getAllJson();
+    static QJsonArray getJsonList(int limit, int offset);
 
 private:
     QSharedDataPointer<ContestObject> d;

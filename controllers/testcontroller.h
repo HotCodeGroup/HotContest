@@ -6,7 +6,7 @@
 
 class T_CONTROLLER_EXPORT TestController : public ApplicationController
 {
-    Q_OBJECT
+Q_OBJECT
 public:
     TestController() : ApplicationController() {}
 

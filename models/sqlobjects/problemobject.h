@@ -19,6 +19,7 @@ public:
     int penalty_time {0};
     int contest_id {0};
     int lock_revision {0};
+    int in_contest_id {0};
 
     enum PropertyIndex {
         ProblemId = 0,
@@ -32,6 +33,7 @@ public:
         PenaltyTime,
         ContestId,
         LockRevision,
+        InContestId,
     };
 
     int primaryKeyIndex() const override { return ProblemId; }
@@ -62,6 +64,8 @@ private:    /*** Don't modify below this line ***/
     T_DEFINE_PROPERTY(int, contest_id)
     Q_PROPERTY(int lock_revision READ getlock_revision WRITE setlock_revision)
     T_DEFINE_PROPERTY(int, lock_revision)
+    Q_PROPERTY(int in_contest_id READ getin_contest_id WRITE setin_contest_id)
+    T_DEFINE_PROPERTY(int, in_contest_id)
 };
 
 #endif // PROBLEMOBJECT_H

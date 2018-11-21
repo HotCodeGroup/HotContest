@@ -15,6 +15,7 @@ public:
     QDateTime finish_time;
     bool is_private;
     bool is_active;
+    int participants_count {0};
     int lock_revision {0};
 
     enum PropertyIndex {
@@ -25,6 +26,7 @@ public:
         FinishTime,
         IsPrivate,
         IsActive,
+        ParticipantsCount,
         LockRevision,
     };
 
@@ -48,6 +50,8 @@ private:    /*** Don't modify below this line ***/
     T_DEFINE_PROPERTY(bool, is_private)
     Q_PROPERTY(bool is_active READ getis_active WRITE setis_active)
     T_DEFINE_PROPERTY(bool, is_active)
+    Q_PROPERTY(int participants_count READ getparticipants_count WRITE setparticipants_count)
+    T_DEFINE_PROPERTY(int, participants_count)
     Q_PROPERTY(int lock_revision READ getlock_revision WRITE setlock_revision)
     T_DEFINE_PROPERTY(int, lock_revision)
 };

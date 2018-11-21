@@ -35,5 +35,3 @@ HEADERS += submitcontroller.h
 SOURCES += submitcontroller.cpp
 HEADERS += testcontroller.h
 SOURCES += testcontroller.cpp
-HEADERS += testsubmitcontroller.h
-SOURCES += testsubmitcontroller.cpp

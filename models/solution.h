@@ -26,11 +26,11 @@ public:
     void setSrcFile(const QString &srcFile);
     QDateTime submitTime() const;
     void setSubmitTime(const QDateTime &submitTime);
-    int problemId() const;
-    void setProblemId(int problemId);
     int userId() const;
     void setUserId(int userId);
     int lockRevision() const;
+    int problemId() const;
+    void setProblemId(int problemId);
     Solution &operator=(const Solution &other);
 
     bool create() override { return TAbstractModel::create(); }
@@ -38,7 +38,7 @@ public:
     bool save()   override { return TAbstractModel::save(); }
     bool remove() override { return TAbstractModel::remove(); }
 
-    static Solution create(const QString &srcFile, const QDateTime &submitTime, int problemId, int userId);
+    static Solution create(const QString &srcFile, const QDateTime &submitTime, int userId, int problemId);
     static Solution create(const QVariantMap &values);
     static Solution get(int solutionId);
     static Solution get(int solutionId, int lockRevision);

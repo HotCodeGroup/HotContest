@@ -138,9 +138,36 @@ int TestSubmit::count()
     return mapper.findCount();
 }
 
-QList<TestSubmit> TestSubmit::getAll()
+QList<TestSubmit> TestSubmit::getAll(int submitId, int limit, int offset)
 {
-    return tfGetModelListByCriteria<TestSubmit, TestSubmitObject>(TCriteria());
+    TSqlQueryORMapper<TestSubmitObject> mapper;
+    QString queryStr = "SELECT ts.* FROM test_submit ts\n"
+                       "JOIN test t on ts.test_id = t.test_id ";
+    if (submitId) {
+        queryStr += "WHERE submit_id = ? ";
+        mapper.addBind(submitId);
+    }
+    queryStr += "ORDER BY t.in_problem_id ASC ";
+    if (limit) {
+        queryStr += "LIMIT ? ";
+        mapper.addBind(limit);
+    }
+
+    if (offset) {
+        queryStr += "OFFSET ? ";
+        mapper.addBind(offset);
+    }
+
+    mapper.prepare(queryStr);
+    mapper.exec();
+
+    QList<TestSubmit> result;
+    TSqlQueryORMapperIterator<TestSubmitObject> it(mapper);
+    while (it.hasNext()) {
+        result << TestSubmit(it.next());
+    }
+
+    return result;
 }
 
 QJsonArray TestSubmit::getAllJson()
@@ -179,6 +206,15 @@ QDataStream &operator>>(QDataStream &ds, TestSubmit &model)
     ds >> varmap;
     model.setProperties(varmap);
     return ds;
+}
+
+QVariantMap TestSubmit::getVariantMapLight() const {
+    QVariantMap result;
+    result["verdict"] = verdict().toInt();
+    result["time"] = time();
+    result["memory"] = memory();
+
+    return result;
 }
 
 // Don't remove below this line

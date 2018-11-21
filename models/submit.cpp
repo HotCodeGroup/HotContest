@@ -1,16 +1,19 @@
 #include <TreeFrogModel>
 #include "submit.h"
 #include "submitobject.h"
+#include "testsubmit.h"
 
 Submit::Submit()
     : TAbstractModel(), d(new SubmitObject())
 {
     d->submit_id = 0;
+    d->resp_code = 0;
     d->error_test = 0;
     d->time = 0;
     d->memory = 0;
     d->solution_id = 0;
     d->lock_revision = 0;
+    d->points = 0;
 }
 
 Submit::Submit(const Submit &other)
@@ -32,12 +35,12 @@ int Submit::submitId() const
     return d->submit_id;
 }
 
-QString Submit::respCode() const
+int Submit::respCode() const
 {
     return d->resp_code;
 }
 
-void Submit::setRespCode(const QString &respCode)
+void Submit::setRespCode(int respCode)
 {
     d->resp_code = respCode;
 }
@@ -87,13 +90,23 @@ int Submit::lockRevision() const
     return d->lock_revision;
 }
 
+int Submit::points() const
+{
+    return d->points;
+}
+
+void Submit::setPoints(int points)
+{
+    d->points = points;
+}
+
 Submit &Submit::operator=(const Submit &other)
 {
     d = other.d;  // increments the reference count of the data
     return *this;
 }
 
-Submit Submit::create(const QString &respCode, int errorTest, int time, int memory, int solutionId)
+Submit Submit::create(int respCode, int errorTest, int time, int memory, int solutionId, int points)
 {
     SubmitObject obj;
     obj.resp_code = respCode;
@@ -101,6 +114,7 @@ Submit Submit::create(const QString &respCode, int errorTest, int time, int memo
     obj.time = time;
     obj.memory = memory;
     obj.solution_id = solutionId;
+    obj.points = points;
     if (!obj.create()) {
         return Submit();
     }
@@ -180,6 +194,54 @@ QDataStream &operator>>(QDataStream &ds, Submit &model)
     model.setProperties(varmap);
     return ds;
 }
+
+QVariantMap Submit::fullDataFromRecord(const QSqlRecord &record) {
+    QVariantMap result;
+
+    result["submitId"] = record.value(0).toInt();
+    result["problemId"] = record.value(1).toInt();
+    result["sendTime"] = record.value(2).toDateTime();
+    result["result"] = record.value(3).toInt();
+    result["testError"] = record.value(4).toInt();
+    result["time"] = record.value(5).toInt();
+    result["memory"] = record.value(6).toInt();
+    result["points"] = record.value(7).toInt();
+
+    return result;
+}
+
+QVariantMap Submit::getFullInfo(int submitId) {
+    TSqlQuery query;
+    query.prepare("SELECT su.submit_id,\n"
+                  "       so.problem_id,\n"
+                  "       so.submit_time,\n"
+                  "       su.resp_code,\n"
+                  "       su.error_test,\n"
+                  "       su.time,\n"
+                  "       su.memory,\n"
+                  "       su.points\n"
+                  "FROM submit su\n"
+                  "       JOIN solution so on su.solution_id = so.solution_id\n"
+                  "WHERE su.submit_id = ?;").addBind(submitId).exec();
+
+
+    if (!query.next()) {
+        return QVariantMap();
+    }
+
+    QVariantMap result(fullDataFromRecord(query.record()));
+    QList<QVariant> testSubmitShortList;
+    auto testSubmitList = TestSubmit::getAll(submitId);
+    for (const auto &testSubmit : testSubmitList) {
+        testSubmitShortList << testSubmit.getVariantMapLight();
+    }
+
+    result["tests"] = testSubmitShortList;
+
+    return result;
+}
+
+
 
 // Don't remove below this line
 T_REGISTER_STREAM_OPERATORS(Submit)

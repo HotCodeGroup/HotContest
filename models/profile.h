@@ -6,6 +6,7 @@
 #include <QVariant>
 #include <QSharedDataPointer>
 #include <TGlobal>
+#include <TAbstractUser>
 #include <TAbstractModel>
 
 class TModelObject;
@@ -13,7 +14,7 @@ class ProfileObject;
 class QJsonArray;
 
 
-class T_MODEL_EXPORT Profile : public TAbstractModel
+class T_MODEL_EXPORT Profile : public TAbstractUser, public TAbstractModel
 {
 public:
     Profile();
@@ -37,13 +38,15 @@ public:
     bool isActive() const;
     void setIsActive(const bool &isActive);
     int lockRevision() const;
+    QString identityKey() const { return QString::number(userId()); }
     Profile &operator=(const Profile &other);
 
-    bool create() override { return TAbstractModel::create(); }
-    bool update() override { return TAbstractModel::update(); }
-    bool save()   override { return TAbstractModel::save(); }
-    bool remove() override { return TAbstractModel::remove(); }
+    bool create() { return TAbstractModel::create(); }
+    bool update() { return TAbstractModel::update(); }
+    bool save()   { return TAbstractModel::save(); }
+    bool remove() { return TAbstractModel::remove(); }
 
+    static Profile authenticate(const QString &userId, const QString &password);
     static Profile create(const QString &firstName, const QString &lastName, const QString &nickname, const QString &email, const QString &password, const QDateTime &dateJoined, const bool &isActive);
     static Profile create(const QVariantMap &values);
     static Profile get(int userId);
@@ -55,8 +58,8 @@ public:
 private:
     QSharedDataPointer<ProfileObject> d;
 
-    TModelObject *modelData() override;
-    const TModelObject *modelData() const override;
+    TModelObject *modelData();
+    const TModelObject *modelData() const;
     friend QDataStream &operator<<(QDataStream &ds, const Profile &model);
     friend QDataStream &operator>>(QDataStream &ds, Profile &model);
 };

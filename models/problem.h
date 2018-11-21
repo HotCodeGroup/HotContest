@@ -41,6 +41,8 @@ public:
     int contestId() const;
     void setContestId(int contestId);
     int lockRevision() const;
+    int inContestId() const;
+    void setInContestId(int inContestId);
     Problem &operator=(const Problem &other);
 
     bool create() override { return TAbstractModel::create(); }
@@ -48,14 +50,19 @@ public:
     bool save()   override { return TAbstractModel::save(); }
     bool remove() override { return TAbstractModel::remove(); }
 
-    static Problem create(const QString &title, const QString &description, int timeLimit, int memoryLimit, int triesLeft, int points, int penaltyTry, int penaltyTime, int contestId);
+    QVariantMap toVariantMapLight() const;
+
+    static Problem create(const QString &title, const QString &description, int timeLimit, int memoryLimit, int triesLeft, int points, int penaltyTry, int penaltyTime, int contestId, int inContestId);
     static Problem create(const QVariantMap &values);
     static Problem get(int problemId);
     static Problem get(int problemId, int lockRevision);
+    static Problem getWithContest(int contestId, int problemId);
+    static Problem getWithContest(int contestId, int problemId, int lockRevision);
     static int count();
-    static QList<Problem> getAll();
-    static QJsonArray getAllJson();
+    static QList<Problem> getAll(int contestID = 0);
+    static QJsonArray getAllJson(int contestID = 0);
 
+    static QJsonArray getShortAllJson(int userID = 0, int contestID = 0);
 private:
     QSharedDataPointer<ProblemObject> d;
 

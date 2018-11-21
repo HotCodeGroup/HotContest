@@ -3,19 +3,20 @@
 #include "profileobject.h"
 
 Profile::Profile()
-    : TAbstractModel(), d(new ProfileObject())
+    : TAbstractUser(), TAbstractModel(), d(new ProfileObject())
 {
     d->user_id = 0;
     d->lock_revision = 0;
 }
 
 Profile::Profile(const Profile &other)
-    : TAbstractModel(), d(new ProfileObject(*other.d))
+    : TAbstractUser(), TAbstractModel(), d(new ProfileObject(*other.d))
 { }
 
 Profile::Profile(const ProfileObject &object)
-    : TAbstractModel(), d(new ProfileObject(object))
+    : TAbstractUser(), TAbstractModel(), d(new ProfileObject(object))
 { }
+
 
 Profile::~Profile()
 {
@@ -109,6 +110,19 @@ Profile &Profile::operator=(const Profile &other)
     return *this;
 }
 
+Profile Profile::authenticate(const QString &userId, const QString &password)
+{
+    if (userId.isEmpty() || password.isEmpty())
+        return Profile();
+
+    TSqlORMapper<ProfileObject> mapper;
+    ProfileObject obj = mapper.findFirst(TCriteria(ProfileObject::UserId, userId));
+    if (obj.isNull() || obj.password != password) {
+        obj.clear();
+    }
+    return Profile(obj);
+}
+
 Profile Profile::create(const QString &firstName, const QString &lastName, const QString &nickname, const QString &email, const QString &password, const QDateTime &dateJoined, const bool &isActive)
 {
     ProfileObject obj;
@@ -158,7 +172,7 @@ int Profile::count()
 
 QList<Profile> Profile::getAll()
 {
-    return tfGetModelListByCriteria<Profile, ProfileObject>(TCriteria());
+    return tfGetModelListByCriteria<Profile, ProfileObject>();
 }
 
 QJsonArray Profile::getAllJson()

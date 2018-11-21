@@ -26,9 +26,13 @@ public:
     void setInput(const QString &input);
     QString output() const;
     void setOutput(const QString &output);
+    int lockRevision() const;
     int problemId() const;
     void setProblemId(int problemId);
-    int lockRevision() const;
+    int inProblemId() const;
+    void setInProblemId(int inProblemId);
+    QString getInputPreview() const;
+    QString getOutputPreview() const;
     Test &operator=(const Test &other);
 
     bool create() override { return TAbstractModel::create(); }
@@ -36,16 +40,26 @@ public:
     bool save()   override { return TAbstractModel::save(); }
     bool remove() override { return TAbstractModel::remove(); }
 
-    static Test create(const QString &input, const QString &output, int problemId);
+    QVariantMap toVariantMap() const override;
+    QVariantMap toVariantMapLight() const;
+
+    static Test create(const QString &input, const QString &output, int problemId, int inProblemId);
     static Test create(const QVariantMap &values);
     static Test get(int testId);
     static Test get(int testId, int lockRevision);
+    static Test getWithProblem(int problemId, int testPos);
     static int count();
     static QList<Test> getAll();
     static QJsonArray getAllJson();
 
+    static QJsonArray getLightListJson(int contestId, int problemId);
 private:
+    static QString testsRoot;
+    static int symbols_limit;
+
     QSharedDataPointer<TestObject> d;
+    QString inputPreview;
+    QString outputPreview;
 
     TModelObject *modelData() override;
     const TModelObject *modelData() const override;

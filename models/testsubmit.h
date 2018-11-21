@@ -35,6 +35,8 @@ public:
     int lockRevision() const;
     TestSubmit &operator=(const TestSubmit &other);
 
+    QVariantMap getVariantMapLight() const;
+
     bool create() override { return TAbstractModel::create(); }
     bool update() override { return TAbstractModel::update(); }
     bool save()   override { return TAbstractModel::save(); }
@@ -45,7 +47,7 @@ public:
     static TestSubmit get(int testSubmitId);
     static TestSubmit get(int testSubmitId, int lockRevision);
     static int count();
-    static QList<TestSubmit> getAll();
+    static QList<TestSubmit> getAll(int submitId = 0,  int limit = 0, int offset = 0);
     static QJsonArray getAllJson();
 
 private:

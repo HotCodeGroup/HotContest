@@ -11,11 +11,7 @@ public:
     SolutionController() : ApplicationController() {}
 
 public slots:
-    void index();
-    void show(const QString &solutionId);
-    void create();
-    void save(const QString &solutionId);
-    void remove(const QString &solutionId);
+    void create(const QString &contestId, const QString &problemPos);
 };
 
 #endif // SOLUTIONCONTROLLER_H

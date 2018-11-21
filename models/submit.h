@@ -7,6 +7,7 @@
 #include <QSharedDataPointer>
 #include <TGlobal>
 #include <TAbstractModel>
+#include <QtSql/QSqlRecord>
 
 class TModelObject;
 class SubmitObject;
@@ -22,8 +23,8 @@ public:
     ~Submit();
 
     int submitId() const;
-    QString respCode() const;
-    void setRespCode(const QString &respCode);
+    int respCode() const;
+    void setRespCode(int respCode);
     int errorTest() const;
     void setErrorTest(int errorTest);
     int time() const;
@@ -33,6 +34,8 @@ public:
     int solutionId() const;
     void setSolutionId(int solutionId);
     int lockRevision() const;
+    int points() const;
+    void setPoints(int points);
     Submit &operator=(const Submit &other);
 
     bool create() override { return TAbstractModel::create(); }
@@ -40,7 +43,7 @@ public:
     bool save()   override { return TAbstractModel::save(); }
     bool remove() override { return TAbstractModel::remove(); }
 
-    static Submit create(const QString &respCode, int errorTest, int time, int memory, int solutionId);
+    static Submit create(int respCode, int errorTest, int time, int memory, int solutionId, int points);
     static Submit create(const QVariantMap &values);
     static Submit get(int submitId);
     static Submit get(int submitId, int lockRevision);
@@ -48,7 +51,11 @@ public:
     static QList<Submit> getAll();
     static QJsonArray getAllJson();
 
+    static QVariantMap getFullInfo(int submitId);
+
 private:
+    static QVariantMap fullDataFromRecord(const QSqlRecord &record);
+
     QSharedDataPointer<SubmitObject> d;
 
     TModelObject *modelData() override;

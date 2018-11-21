@@ -9,12 +9,13 @@ class T_MODEL_EXPORT SubmitObject : public TSqlObject, public QSharedData
 {
 public:
     int submit_id {0};
-    QString resp_code;
+    int resp_code {0};
     int error_test {0};
     int time {0};
     int memory {0};
     int solution_id {0};
     int lock_revision {0};
+    int points {0};
 
     enum PropertyIndex {
         SubmitId = 0,
@@ -24,6 +25,7 @@ public:
         Memory,
         SolutionId,
         LockRevision,
+        Points,
     };
 
     int primaryKeyIndex() const override { return SubmitId; }
@@ -34,8 +36,8 @@ private:    /*** Don't modify below this line ***/
     Q_OBJECT
     Q_PROPERTY(int submit_id READ getsubmit_id WRITE setsubmit_id)
     T_DEFINE_PROPERTY(int, submit_id)
-    Q_PROPERTY(QString resp_code READ getresp_code WRITE setresp_code)
-    T_DEFINE_PROPERTY(QString, resp_code)
+    Q_PROPERTY(int resp_code READ getresp_code WRITE setresp_code)
+    T_DEFINE_PROPERTY(int, resp_code)
     Q_PROPERTY(int error_test READ geterror_test WRITE seterror_test)
     T_DEFINE_PROPERTY(int, error_test)
     Q_PROPERTY(int time READ gettime WRITE settime)
@@ -46,6 +48,8 @@ private:    /*** Don't modify below this line ***/
     T_DEFINE_PROPERTY(int, solution_id)
     Q_PROPERTY(int lock_revision READ getlock_revision WRITE setlock_revision)
     T_DEFINE_PROPERTY(int, lock_revision)
+    Q_PROPERTY(int points READ getpoints WRITE setpoints)
+    T_DEFINE_PROPERTY(int, points)
 };
 
 #endif // SUBMITOBJECT_H

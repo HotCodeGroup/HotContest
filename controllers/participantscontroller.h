@@ -11,6 +11,10 @@ public:
 
 public slots:
     void list(const QString &contestId);
+
+private:
+    static int items_per_page;
+    static int show_around;
 };
 
 #endif // PARTICIPANTSCONTROLLER_H

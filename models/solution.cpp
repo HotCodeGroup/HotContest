@@ -6,9 +6,9 @@ Solution::Solution()
     : TAbstractModel(), d(new SolutionObject())
 {
     d->solution_id = 0;
-    d->problem_id = 0;
     d->user_id = 0;
     d->lock_revision = 0;
+    d->problem_id = 0;
 }
 
 Solution::Solution(const Solution &other)
@@ -50,16 +50,6 @@ void Solution::setSubmitTime(const QDateTime &submitTime)
     d->submit_time = submitTime;
 }
 
-int Solution::problemId() const
-{
-    return d->problem_id;
-}
-
-void Solution::setProblemId(int problemId)
-{
-    d->problem_id = problemId;
-}
-
 int Solution::userId() const
 {
     return d->user_id;
@@ -75,19 +65,29 @@ int Solution::lockRevision() const
     return d->lock_revision;
 }
 
+int Solution::problemId() const
+{
+    return d->problem_id;
+}
+
+void Solution::setProblemId(int problemId)
+{
+    d->problem_id = problemId;
+}
+
 Solution &Solution::operator=(const Solution &other)
 {
     d = other.d;  // increments the reference count of the data
     return *this;
 }
 
-Solution Solution::create(const QString &srcFile, const QDateTime &submitTime, int problemId, int userId)
+Solution Solution::create(const QString &srcFile, const QDateTime &submitTime, int userId, int problemId)
 {
     SolutionObject obj;
     obj.src_file = srcFile;
     obj.submit_time = submitTime;
-    obj.problem_id = problemId;
     obj.user_id = userId;
+    obj.problem_id = problemId;
     if (!obj.create()) {
         return Solution();
     }
