@@ -1,4 +1,6 @@
 #include <TreeFrogModel>
+#include <sqlobjects/solutionobject.h>
+#include <sqlobjects/problemobject.h>
 #include "submit.h"
 #include "submitobject.h"
 #include "testsubmit.h"
@@ -152,6 +154,16 @@ int Submit::count()
     return mapper.findCount();
 }
 
+int Submit::countUserContestSubmits(int contestId, int userId) {
+    TSqlORMapper<SolutionObject> mapper;
+    mapper.setJoin(SolutionObject::SolutionId, TSqlJoin<SubmitObject>(SubmitObject::SolutionId, TCriteria()));
+    mapper.setJoin(SolutionObject::ProblemId, TSqlJoin<ProblemObject>(ProblemObject::ProblemId, TCriteria(ProblemObject::ContestId, contestId)));
+
+    TCriteria cri;
+    cri.add(SolutionObject::UserId, userId);
+    return mapper.findCount(cri);
+}
+
 QList<Submit> Submit::getAll()
 {
     return tfGetModelListByCriteria<Submit, SubmitObject>(TCriteria());
@@ -167,6 +179,36 @@ QJsonArray Submit::getAllJson()
             array.append(QJsonValue(QJsonObject::fromVariantMap(Submit(i.next()).toVariantMap())));
         }
     }
+    return array;
+}
+
+QJsonArray Submit::getUserContestSubmitsJson(int contestId, int userId, int limit, int offset) {
+    QJsonArray array;
+
+    TSqlQuery query;
+    QString queryStr = "SELECT su.submit_id,\n"
+                       "       so.problem_id,\n"
+                       "       so.submit_time,\n"
+                       "       su.resp_code,\n"
+                       "       su.error_test,\n"
+                       "       su.time,\n"
+                       "       su.memory,\n"
+                       "       su.points\n"
+                       "FROM solution so\n"
+                       "       JOIN submit su on so.solution_id = su.solution_id\n"
+                       "       JOIN problem p on so.problem_id = p.problem_id\n"
+                       "WHERE p.contest_id = ? AND user_id = ? ORDER BY so.submit_time DESC ";
+    if (limit) queryStr += "LIMIT ? ";
+    if (offset) queryStr += "OFFSET ? ";
+    query.prepare(queryStr).addBind(contestId).addBind(userId);
+    if (limit) query.addBind(limit);
+    if (offset) query.addBind(offset);
+    query.exec();
+
+    while (query.next()) {
+        array.append(QJsonValue(QJsonObject::fromVariantMap(fullDataFromRecord(query.record()))));
+    }
+
     return array;
 }
 
@@ -210,7 +252,7 @@ QVariantMap Submit::fullDataFromRecord(const QSqlRecord &record) {
     return result;
 }
 
-QVariantMap Submit::getFullInfo(int submitId) {
+QVariantMap Submit::getFullInfo(int submitId, int testsLimit) {
     TSqlQuery query;
     query.prepare("SELECT su.submit_id,\n"
                   "       so.problem_id,\n"
@@ -222,7 +264,7 @@ QVariantMap Submit::getFullInfo(int submitId) {
                   "       su.points\n"
                   "FROM submit su\n"
                   "       JOIN solution so on su.solution_id = so.solution_id\n"
-                  "WHERE su.submit_id = ?;").addBind(submitId).exec();
+                  "WHERE su.submit_id = ? ORDER BY so.submit_time DESC;").addBind(submitId).exec();
 
 
     if (!query.next()) {
@@ -231,13 +273,12 @@ QVariantMap Submit::getFullInfo(int submitId) {
 
     QVariantMap result(fullDataFromRecord(query.record()));
     QList<QVariant> testSubmitShortList;
-    auto testSubmitList = TestSubmit::getAll(submitId);
+    auto testSubmitList = TestSubmit::getAll(submitId, testsLimit);
     for (const auto &testSubmit : testSubmitList) {
         testSubmitShortList << testSubmit.getVariantMapLight();
     }
 
     result["tests"] = testSubmitShortList;
-
     return result;
 }
 

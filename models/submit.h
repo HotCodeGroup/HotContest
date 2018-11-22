@@ -48,10 +48,12 @@ public:
     static Submit get(int submitId);
     static Submit get(int submitId, int lockRevision);
     static int count();
+    static int countUserContestSubmits(int contestId, int userId);
     static QList<Submit> getAll();
     static QJsonArray getAllJson();
+    static QJsonArray getUserContestSubmitsJson(int contestId, int userId, int limit, int offset);
 
-    static QVariantMap getFullInfo(int submitId);
+    static QVariantMap getFullInfo(int submitId, int testsLimit);
 
 private:
     static QVariantMap fullDataFromRecord(const QSqlRecord &record);

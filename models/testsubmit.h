@@ -47,6 +47,7 @@ public:
     static TestSubmit get(int testSubmitId);
     static TestSubmit get(int testSubmitId, int lockRevision);
     static int count();
+    static int countForSubmit(int submitId);
     static QList<TestSubmit> getAll(int submitId = 0,  int limit = 0, int offset = 0);
     static QJsonArray getAllJson();
 

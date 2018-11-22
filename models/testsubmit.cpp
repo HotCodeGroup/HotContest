@@ -143,22 +143,17 @@ QList<TestSubmit> TestSubmit::getAll(int submitId, int limit, int offset)
     TSqlQueryORMapper<TestSubmitObject> mapper;
     QString queryStr = "SELECT ts.* FROM test_submit ts\n"
                        "JOIN test t on ts.test_id = t.test_id ";
-    if (submitId) {
-        queryStr += "WHERE submit_id = ? ";
-        mapper.addBind(submitId);
-    }
+    if (submitId) queryStr += "WHERE submit_id = ? ";
     queryStr += "ORDER BY t.in_problem_id ASC ";
-    if (limit) {
-        queryStr += "LIMIT ? ";
-        mapper.addBind(limit);
-    }
+    if (limit) queryStr += "LIMIT ? ";
+    if (offset) queryStr += "OFFSET ? ";
+    queryStr += ";";
 
-    if (offset) {
-        queryStr += "OFFSET ? ";
-        mapper.addBind(offset);
-    }
 
     mapper.prepare(queryStr);
+    if (submitId) mapper.addBind(submitId);
+    if (limit) mapper.addBind(limit);
+    if (offset) mapper.addBind(offset);
     mapper.exec();
 
     QList<TestSubmit> result;
@@ -210,11 +205,18 @@ QDataStream &operator>>(QDataStream &ds, TestSubmit &model)
 
 QVariantMap TestSubmit::getVariantMapLight() const {
     QVariantMap result;
-    result["verdict"] = verdict().toInt();
+    result["result"] = verdict().toInt();
     result["time"] = time();
     result["memory"] = memory();
 
     return result;
+}
+
+int TestSubmit::countForSubmit(int submitId) {
+    TSqlORMapper<TestSubmitObject> mapper;
+    TCriteria cri;
+    cri.add(TestSubmitObject::SubmitId, submitId);
+    return mapper.findCount(cri);
 }
 
 // Don't remove below this line
