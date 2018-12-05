@@ -1,6 +1,8 @@
 #include <TreeFrogModel>
 #include "solution.h"
 #include "solutionobject.h"
+#include "profile.h"
+
 
 Solution::Solution()
     : TAbstractModel(), d(new SolutionObject())

@@ -258,7 +258,7 @@ QJsonArray Problem::getShortAllJson(int userID, int contestID) {
                   "                              join submit su on so.solution_id = su.solution_id\n"
                   "                       where so.user_id = ?\n"
                   "                         AND su.resp_code = 0)\n"
-                  "SELECT p.title, p.points, exists(select 1 FROM done_problems dp WHERE dp.problem_id = p.problem_id) AS \"is_done\"\n"
+                  "SELECT p.in_contest_id, p.title, p.points, exists(select 1 FROM done_problems dp WHERE dp.problem_id = p.problem_id) AS \"is_done\"\n"
                   "FROM problem p\n"
                   "WHERE contest_id = ?\n"
                   "ORDER BY in_contest_id ASC;");
@@ -268,9 +268,10 @@ QJsonArray Problem::getShortAllJson(int userID, int contestID) {
     QJsonArray array;
     QJsonObject info;
     while (query.next()) {
-        info["title"] = query.value(0).toString();
-        info["points"] = query.value(1).toInt();
-        info["isDone"] = query.value(2).toBool();
+        info["inContestId"] = query.value(0).toInt();
+        info["title"] = query.value(1).toString();
+        info["points"] = query.value(2).toInt();
+        info["isDone"] = query.value(3).toBool();
 
         array.append(info);
     }

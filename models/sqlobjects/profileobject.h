@@ -11,10 +11,10 @@ public:
     int user_id {0};
     QString first_name;
     QString last_name;
-    QString nickname;
+    QString username;
     QString email;
     QString password;
-    QDateTime date_joined;
+    QDateTime created_at;
     bool is_active;
     int lock_revision {0};
 
@@ -22,10 +22,10 @@ public:
         UserId = 0,
         FirstName,
         LastName,
-        Nickname,
+        Username,
         Email,
         Password,
-        DateJoined,
+        CreatedAt,
         IsActive,
         LockRevision,
     };
@@ -42,14 +42,14 @@ private:    /*** Don't modify below this line ***/
     T_DEFINE_PROPERTY(QString, first_name)
     Q_PROPERTY(QString last_name READ getlast_name WRITE setlast_name)
     T_DEFINE_PROPERTY(QString, last_name)
-    Q_PROPERTY(QString nickname READ getnickname WRITE setnickname)
-    T_DEFINE_PROPERTY(QString, nickname)
+    Q_PROPERTY(QString username READ getusername WRITE setusername)
+    T_DEFINE_PROPERTY(QString, username)
     Q_PROPERTY(QString email READ getemail WRITE setemail)
     T_DEFINE_PROPERTY(QString, email)
     Q_PROPERTY(QString password READ getpassword WRITE setpassword)
     T_DEFINE_PROPERTY(QString, password)
-    Q_PROPERTY(QDateTime date_joined READ getdate_joined WRITE setdate_joined)
-    T_DEFINE_PROPERTY(QDateTime, date_joined)
+    Q_PROPERTY(QDateTime created_at READ getcreated_at WRITE setcreated_at)
+    T_DEFINE_PROPERTY(QDateTime, created_at)
     Q_PROPERTY(bool is_active READ getis_active WRITE setis_active)
     T_DEFINE_PROPERTY(bool, is_active)
     Q_PROPERTY(int lock_revision READ getlock_revision WRITE setlock_revision)

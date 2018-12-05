@@ -15,3 +15,7 @@ include(../appbase.pri)
 
 HEADERS += applicationhelper.h
 SOURCES += applicationhelper.cpp
+HEADERS += profilevalidator.h
+SOURCES += profilevalidator.cpp
+HEADERS += profileeditvalidator.h
+SOURCES += profileeditvalidator.cpp

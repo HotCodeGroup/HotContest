@@ -26,13 +26,19 @@ void SubmitController::list(const QString &contestId)
     if (!ok) {
         current = 1;
     }
-    int total = Submit::countUserContestSubmits(contestIntId, 1);
-    qDebug() << total;
+
+    int problemId = httpRequest().queryItemValue("problem", "").toInt(&ok);
+    if (!ok) {
+        problemId = 0;
+    }
+
+
+    int total = Submit::countUserContestSubmits(contestIntId, 1, problemId);
     TPaginator pager(total, SubmitController::items_per_page, SubmitController::show_around);
     pager.setCurrentPage(current);
 
     //Позже userId будет браться из аналога Cookies
-    renderJson(Submit::getUserContestSubmitsJson(contestIntId, 1, pager.itemCountPerPage(), pager.offset()));
+    renderJson(Submit::getUserContestSubmitsJson(contestIntId, 1, pager.itemCountPerPage(), pager.offset(), problemId));
 }
 
 /* Contest / Submit / View a submit details

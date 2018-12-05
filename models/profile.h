@@ -27,18 +27,20 @@ public:
     void setFirstName(const QString &firstName);
     QString lastName() const;
     void setLastName(const QString &lastName);
-    QString nickname() const;
-    void setNickname(const QString &nickname);
+    QString username() const;
+    void setUsername(const QString &username);
     QString email() const;
     void setEmail(const QString &email);
     QString password() const;
     void setPassword(const QString &password);
-    QDateTime dateJoined() const;
-    void setDateJoined(const QDateTime &dateJoined);
+    QDateTime createdAt() const;
     bool isActive() const;
     void setIsActive(const bool &isActive);
     int lockRevision() const;
-    QString identityKey() const { return QString::number(userId()); }
+    void updateProperties(const QVariantMap &value);
+    QVariantMap toVariantMapLight() const;
+
+    QString identityKey() const { return username(); }
     Profile &operator=(const Profile &other);
 
     bool create() { return TAbstractModel::create(); }
@@ -46,11 +48,13 @@ public:
     bool save()   { return TAbstractModel::save(); }
     bool remove() { return TAbstractModel::remove(); }
 
-    static Profile authenticate(const QString &userId, const QString &password);
-    static Profile create(const QString &firstName, const QString &lastName, const QString &nickname, const QString &email, const QString &password, const QDateTime &dateJoined, const bool &isActive);
-    static Profile create(const QVariantMap &values);
+    static Profile authenticate(const QString &username, const QString &password);
+    static Profile create(const QString &firstName, const QString &lastName, const QString &username, const QString &email, const QString &password, const bool &isActive);
+    static Profile create(QVariantMap &values);
     static Profile get(int userId);
     static Profile get(int userId, int lockRevision);
+    static Profile getByUsername(const QString &usrname);
+    static Profile getByEmail(const QString &email);
     static int count();
     static QList<Profile> getAll();
     static QJsonArray getAllJson();

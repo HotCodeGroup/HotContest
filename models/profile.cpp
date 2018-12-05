@@ -49,14 +49,14 @@ void Profile::setLastName(const QString &lastName)
     d->last_name = lastName;
 }
 
-QString Profile::nickname() const
+QString Profile::username() const
 {
-    return d->nickname;
+    return d->username;
 }
 
-void Profile::setNickname(const QString &nickname)
+void Profile::setUsername(const QString &username)
 {
-    d->nickname = nickname;
+    d->username = username;
 }
 
 QString Profile::email() const
@@ -79,14 +79,9 @@ void Profile::setPassword(const QString &password)
     d->password = password;
 }
 
-QDateTime Profile::dateJoined() const
+QDateTime Profile::createdAt() const
 {
-    return d->date_joined;
-}
-
-void Profile::setDateJoined(const QDateTime &dateJoined)
-{
-    d->date_joined = dateJoined;
+    return d->created_at;
 }
 
 bool Profile::isActive() const
@@ -110,28 +105,34 @@ Profile &Profile::operator=(const Profile &other)
     return *this;
 }
 
-Profile Profile::authenticate(const QString &userId, const QString &password)
+Profile Profile::authenticate(const QString &username, const QString &password)
 {
-    if (userId.isEmpty() || password.isEmpty())
+    if (username.isEmpty() || password.isEmpty())
         return Profile();
 
     TSqlORMapper<ProfileObject> mapper;
-    ProfileObject obj = mapper.findFirst(TCriteria(ProfileObject::UserId, userId));
-    if (obj.isNull() || obj.password != password) {
+    ProfileObject obj = mapper.findFirst(TCriteria(ProfileObject::Username, username));
+    if (obj.isNull()) {
         obj.clear();
+    } else {
+        auto hash = QCryptographicHash::hash(password.toUtf8(),
+                                             QCryptographicHash::Sha256).toHex();
+        if (obj.password != hash) {
+            obj.clear();
+        }
     }
+
     return Profile(obj);
 }
 
-Profile Profile::create(const QString &firstName, const QString &lastName, const QString &nickname, const QString &email, const QString &password, const QDateTime &dateJoined, const bool &isActive)
+Profile Profile::create(const QString &firstName, const QString &lastName, const QString &username, const QString &email, const QString &password, const bool &isActive)
 {
     ProfileObject obj;
     obj.first_name = firstName;
     obj.last_name = lastName;
-    obj.nickname = nickname;
+    obj.username = username;
     obj.email = email;
     obj.password = password;
-    obj.date_joined = dateJoined;
     obj.is_active = isActive;
     if (!obj.create()) {
         return Profile();
@@ -139,9 +140,10 @@ Profile Profile::create(const QString &firstName, const QString &lastName, const
     return Profile(obj);
 }
 
-Profile Profile::create(const QVariantMap &values)
+Profile Profile::create(QVariantMap &values)
 {
     Profile model;
+    values["password"] = QCryptographicHash::hash(values["password"].toString().toUtf8(), QCryptographicHash::Sha256).toHex();
     model.setProperties(values);
     if (!model.d->create()) {
         model.d->clear();
@@ -153,6 +155,22 @@ Profile Profile::get(int userId)
 {
     TSqlORMapper<ProfileObject> mapper;
     return Profile(mapper.findByPrimaryKey(userId));
+}
+
+Profile Profile::getByUsername(const QString &usrname)
+{
+    TSqlORMapper<ProfileObject> mapper;
+    TCriteria cri;
+    cri.add(ProfileObject::Username, usrname);
+    return Profile(mapper.findFirst(cri));
+}
+
+Profile Profile::getByEmail(const QString &email)
+{
+    TSqlORMapper<ProfileObject> mapper;
+    TCriteria cri;
+    cri.add(ProfileObject::Email, email);
+    return Profile(mapper.findFirst(cri));
 }
 
 Profile Profile::get(int userId, int lockRevision)
@@ -211,6 +229,23 @@ QDataStream &operator>>(QDataStream &ds, Profile &model)
     ds >> varmap;
     model.setProperties(varmap);
     return ds;
+}
+
+void Profile::updateProperties(const QVariantMap &value) {
+    if (value.find("first_name") != value.end()) setFirstName(value["first_name"].toString());
+    if (value.find("second_name") != value.end()) setLastName(value["second_name"].toString());
+    if (value.find("email") != value.end()) setEmail(value["email"].toString());
+    if (value.find("password") != value.end()) {
+        setPassword(QCryptographicHash::hash(value["password"].toString().toUtf8(), QCryptographicHash::Sha256).toHex());
+    }
+}
+
+QVariantMap Profile::toVariantMapLight() const {
+    auto superMap = TAbstractModel::toVariantMap();
+    superMap.remove("password");
+    superMap.remove("lockRevision");
+
+    return superMap;
 }
 
 // Don't remove below this line
