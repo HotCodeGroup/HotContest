@@ -18,7 +18,6 @@ bool ProfileValidator::validate(const QVariantMap &hash)
         auto checkProfile = Profile::getByUsername(hash["username"].toString());
         if (!checkProfile.isNull()) {
             setValidationError("This username is already taken!");
-            return false;
         }
 
         checkProfile = Profile::getByEmail(hash["email"].toString());

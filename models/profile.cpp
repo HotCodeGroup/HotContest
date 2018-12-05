@@ -132,7 +132,7 @@ Profile Profile::create(const QString &firstName, const QString &lastName, const
     obj.last_name = lastName;
     obj.username = username;
     obj.email = email;
-    obj.password = password;
+    obj.password = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256).toHex();;
     obj.is_active = isActive;
     if (!obj.create()) {
         return Profile();
@@ -142,13 +142,13 @@ Profile Profile::create(const QString &firstName, const QString &lastName, const
 
 Profile Profile::create(QVariantMap &values)
 {
-    Profile model;
-    values["password"] = QCryptographicHash::hash(values["password"].toString().toUtf8(), QCryptographicHash::Sha256).toHex();
-    model.setProperties(values);
-    if (!model.d->create()) {
-        model.d->clear();
-    }
-    return model;
+    return Profile::create(
+        values.value("first_name", "").toString(),
+        values.value("last_name", "").toString(),
+        values.value("username").toString(),
+        values.value("email").toString(),
+        values.value("password").toString(),
+        true);
 }
 
 Profile Profile::get(int userId)
