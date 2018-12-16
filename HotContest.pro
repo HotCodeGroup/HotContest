@@ -13,7 +13,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp
+    main.cpp \
+    src/models/Contest/contest.cpp \
+    src/models/Problem/problem.cpp \
+    src/models/ShortContest/shortcontest.cpp \
+    src/models/ShortProblem/shortproblem.cpp \
+    src/models/ListContest/listofshortcontest.cpp \
+    src/models/ListProblem/listofshortproblem.cpp \
+    src/models/Submit/submit.cpp \
+    src/models/ListSubmits/listofsubmit.cpp \
+    src/models/TestSubmit/testsubmit.cpp \
+    src/models/ListTestSubmit/listoftestsubmit.cpp \
+    src/models/Participant/participant.cpp \
+    src/models/ListParticipants/listofparticipants.cpp \
+    src/models/User/user.cpp \
+    src/models/Forms/CreateContestForm/createcontestform.cpp \
+    src/models/Forms/SignUpForm/signupform.cpp \
+    src/models/Forms/LoginForm/loginform.cpp \
+    src/utils/stateinfo.cpp \
+    src/register/register.cpp \
+    src/requester/requester.cpp \
+    src/tester.cpp \
 
 RESOURCES += qml.qrc
 
@@ -32,20 +52,26 @@ DISTFILES += \
     models.pri
 
 HEADERS += \
-    models/contest.h \
-    models/problem.h \
-    models/shortcontest.h \
-    models/shortproblem.h \
-    models/shortuser.h \
-    models/solution.h \
-    models/submit.h \
-    models/test.h \
-    models/testsubmit.h \
-    models/user.h \
-    models/listofshortcontest.h \
-    models/listofshortproblem.h \
-    models/listofparticipants.h \
-    models/listofsubmit.h \
-    models/tableofresult.h \
-    models/shorttableofresult.h \
-    requester/requester.h
+    src/models/Contest/contest.h \
+    src/models/Problem/problem.h \
+    src/models/ShortContest/shortcontest.h \
+    src/models/ShortProblem/shortproblem.h \
+    src/models/Submit/submit.h \
+#    src/models/Test/test.h \
+    src/models/TestSubmit/testsubmit.h \
+    src/models/User/user.h \
+    src/models/Forms/CreateContestForm/createcontestform.h \
+    src/models/Forms/SignUpForm/signupform.h \
+    src/models/Forms/LoginForm/loginform.h \
+    src/models/ListContest/listofshortcontest.h \
+    src/models/ListProblem/listofshortproblem.h \
+    src/models/Participant/participant.h \
+    src/models/ListParticipants/listofparticipants.h \
+    src/models/ListSubmits/listofsubmit.h \
+    src/models/ListTestSubmit/listoftestsubmit.h \
+#    models/tableofresult.h \
+#    models/shorttableofresult.h \
+    src/utils/stateinfo.h \
+    src/requester/requester.h \
+    src/register/register.h \
+    src/tester.h \
