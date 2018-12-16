@@ -1,0 +1,58 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">qml/main.qml</file>
+    </qresource>
+    <qresource prefix="/view">
+        <file alias="main/tools/Header.qml">qml/view/main/tools/Header.qml</file>
+        <file alias="main/tools/AuthButtons.qml">qml/view/main/tools/AuthButtons.qml</file>
+        <file alias="main/tools/UserPanel.qml">qml/view/main/tools/UserPanel.qml</file>
+        <file alias="main/tools/UserDropdownMenu.qml">qml/view/main/tools/UserDropdownMenu.qml</file>
+        <file alias="main/tools/Footer.qml">qml/view/main/tools/Footer.qml</file>
+        <file alias="main/ShortContests.qml">qml/view/main/ShortContests.qml</file>
+        <file alias="main/CreateContest.qml">qml/view/main/CreateContest.qml</file>
+        <file alias="user/SignIn.qml">qml/view/user/SignIn.qml</file>
+        <file alias="user/SignUp.qml">qml/view/user/SignUp.qml</file>
+        <file alias="user/Settings.qml">qml/view/user/Settings.qml</file>
+        <file alias="contest/BaseContest.qml">qml/view/contest/BaseContest.qml</file>
+        <file alias="contest/tools/LeftColumn.qml">qml/view/contest/tools/LeftColumn.qml</file>
+        <file alias="contest/tools/RightColumn.qml">qml/view/contest/tools/RightColumn.qml</file>
+        <file alias="contest/tools/EmptyRightColumn.qml">qml/view/contest/tools/EmptyRightColumn.qml</file>
+        <file alias="contest/tools/ContestHeader.qml">qml/view/contest/tools/ContestHeader.qml</file>
+        <file alias="contest/Contest.qml">qml/view/contest/Contest.qml</file>
+        <file alias="contest/Problem.qml">qml/view/contest/Problem.qml</file>
+        <file alias="contest/tools/SubmitTable.qml">qml/view/contest/tools/SubmitTable.qml</file>
+        <file alias="contest/tools/TableItem.qml">qml/view/contest/tools/TableItem.qml</file>
+        <file alias="contest/Submits.qml">qml/view/contest/Submits.qml</file>
+        <file alias="contest/Participants.qml">qml/view/contest/Participants.qml</file>
+        <file alias="contest/RunReport.qml">qml/view/contest/RunReport.qml</file>
+        <file alias="paginator/Paginator.qml">qml/view/paginator/Paginator.qml</file>
+        <file alias="paginator/PaginatorItem.qml">qml/view/paginator/PaginatorItem.qml</file>
+        <file alias="contest/tools/RunReportTable.qml">qml/view/contest/tools/RunReportTable.qml</file>
+        <file alias="contest/Results.qml">qml/view/contest/Results.qml</file>
+        <file alias="tools/Form.qml">qml/view/tools/Form.qml</file>
+        <file alias="tools/MyInput.qml">qml/view/tools/MyInput.qml</file>
+        <file alias="tools/ErrorInInput.qml">qml/view/tools/ErrorInInput.qml</file>
+        <file alias="tools/MyButton.qml">qml/view/tools/MyButton.qml</file>
+        <file alias="tools/Loading.qml">qml/view/tools/Loading.qml</file>
+        <file alias="tools/LoginRequired.qml">qml/view/tools/LoginRequired.qml</file>
+    </qresource>
+    <qresource prefix="/font">
+        <file alias="Roboto-Light.ttf">qml/style/fonts/Roboto-Light.ttf</file>
+        <file alias="Roboto-Bold.ttf">qml/style/fonts/Roboto-Bold.ttf</file>
+        <file alias="Roboto-Regular.ttf">qml/style/fonts/Roboto-Regular.ttf</file>
+        <file alias="Overpass-Regular.ttf">qml/style/fonts/Overpass-Regular.ttf</file>
+    </qresource>
+    <qresource prefix="/icon">
+        <file alias="FontAwesome.otf">qml/style/icons/FontAwesome.otf</file>
+        <file alias="cancel.svg">qml/style/icons/cancel.svg</file>
+        <file alias="confirm.svg">qml/style/icons/confirm.svg</file>
+        <file alias="double-arrow-left.svg">qml/style/icons/double-left-chevron.svg</file>
+        <file alias="double-arrow-right.svg">qml/style/icons/double-angle-pointing-to-right.svg</file>
+        <file alias="double-arrow-left_white.svg">qml/style/icons/double-left-chevron_white.svg</file>
+        <file alias="double-arrow-right_white.svg">qml/style/icons/double-angle-pointing-to-right_white.svg</file>
+        <file alias="double-arrow.svg">qml/style/icons/right-arrows-couple.svg</file>
+        <file alias="arrow-right.svg">qml/style/icons/right-arrow.svg</file>
+        <file alias="arrow-left.svg">qml/style/icons/left-arrow.svg</file>
+        <file alias="sort-down.svg">qml/style/icons/sort-down.svg</file>
+    </qresource>
+</RCC>
