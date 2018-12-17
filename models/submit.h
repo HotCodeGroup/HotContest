@@ -43,7 +43,7 @@ public:
     bool save()   override { return TAbstractModel::save(); }
     bool remove() override { return TAbstractModel::remove(); }
 
-    static Submit create(int respCode, int errorTest, int time, int memory, int solutionId, int points);
+    static Submit create(int respCode, int errorTest, int t, int memory, int solutionId, int points);
     static Submit create(const QVariantMap &values);
     static Submit get(int submitId);
     static Submit get(int submitId, int lockRevision);

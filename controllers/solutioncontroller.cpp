@@ -1,5 +1,6 @@
 #include "solutioncontroller.h"
 #include "solution.h"
+#include "submit.h"
 
 /* Contest / Solution / Send solution
  *
@@ -7,33 +8,45 @@
  * https://hotcode.docs.apiary.io/#reference/contest/solution/send-solution
  *
  */
-void SolutionController::create(const QString &contestId, const QString &problemPos)
+void SolutionController::send(const QString &contestId, const QString &problemPos)
 {
-//    switch (httpRequest().method()) {
-//    case Tf::Get:
-//        render();
-//        break;
-//
-//    case Tf::Post: {
-//        auto solution = httpRequest().formItems("solution");
-//        auto model = Solution::create(solution);
-//
-//        if (!model.isNull()) {
-//            QString notice = "Created successfully.";
-//            tflash(notice);
-//            redirect(urla("show", model.solutionId()));
-//        } else {
-//            QString error = "Failed to create.";
-//            texport(error);
-//            texport(solution);
-//            render();
-//        }
-//        break; }
-//
-//    default:
-//        renderErrorResponse(Tf::NotFound);
-//        break;
-//    }
+    if (httpRequest().method() != Tf::Post) {
+        renderErrorResponse(Tf::MethodNotAllowed);
+        return;
+    }
+
+    bool ok = false;
+    int contestIntID = contestId.toInt(&ok);
+    if (!ok) {
+        renderErrorResponse(Tf::BadRequest);
+        return;
+    }
+
+    int problemIntPos = problemPos.toInt(&ok);
+    if (!ok) {
+        renderErrorResponse(Tf::BadRequest);
+        return;
+    }
+
+    TMultipartFormData &formdata = httpRequest().multipartFormData();
+    auto model = Solution::create(formdata, 1, contestIntID, problemIntPos);
+    if (model.isNull()) {
+        renderErrorResponse(Tf::ServiceUnavailable);
+        return;
+    }
+
+    testInfo tests = {
+        model.srcFile(),
+        "/home/gdvfox/StudyMaterials/CPP_Programming/HotContestData/tests/" + contestId + "/" + problemPos + "/in/",
+        "/home/gdvfox/StudyMaterials/CPP_Programming/HotContestData/tests/" + contestId + "/" + problemPos + "/out/",
+        "50",
+        "10000",
+        "2000000",
+        QString::number(model.solutionId()),
+    };
+    ApplicationController::task_channel.push(tests);
+
+    renderErrorResponse(Tf::Created);
 }
 
 // Don't remove below this line

@@ -7,6 +7,7 @@
 #include <QSharedDataPointer>
 #include <TGlobal>
 #include <TAbstractModel>
+#include <TMultipartFormData>
 
 class TModelObject;
 class SolutionObject;
@@ -38,6 +39,7 @@ public:
     bool save()   override { return TAbstractModel::save(); }
     bool remove() override { return TAbstractModel::remove(); }
 
+    static Solution create(TMultipartFormData &srcFile, int user_id, int contest_id, int problem_pos);
     static Solution create(const QString &srcFile, const QDateTime &submitTime, int userId, int problemId);
     static Solution create(const QVariantMap &values);
     static Solution get(int solutionId);
@@ -51,8 +53,12 @@ private:
 
     TModelObject *modelData() override;
     const TModelObject *modelData() const override;
+    static const QString generateFileName(); 
+
     friend QDataStream &operator<<(QDataStream &ds, const Solution &model);
     friend QDataStream &operator>>(QDataStream &ds, Solution &model);
+
+    static const QString src_root;
 };
 
 Q_DECLARE_METATYPE(Solution)

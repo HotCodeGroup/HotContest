@@ -5,9 +5,9 @@ QT += network sql xml qml
 QT -= gui
 DEFINES += TF_DLL
 DESTDIR = ../lib
-INCLUDEPATH += ../helpers ../models
+INCLUDEPATH += /usr/include/boost ../helpers ../models
 DEPENDPATH  += ../helpers ../models
-LIBS += -L../lib -lhelper -lmodel
+LIBS += -L../lib -lhelper -lmodel -L/usr/include/boost -lboost_system -lboost_thread -lboost_fiber
 MOC_DIR = .obj/
 OBJECTS_DIR = .obj/
 

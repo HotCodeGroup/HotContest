@@ -2,8 +2,13 @@
 #define APPLICATIONCONTROLLER_H
 
 #include <TActionController>
-#include "applicationhelper.h"
+#include <boost/fiber/all.hpp>
+#include <boost/array.hpp>
 
+#include "applicationhelper.h"
+#include "tester.h"
+
+typedef boost::array<QString, 7> testInfo;
 
 class T_CONTROLLER_EXPORT ApplicationController : public TActionController
 {
@@ -11,6 +16,8 @@ class T_CONTROLLER_EXPORT ApplicationController : public TActionController
 public:
     ApplicationController();
     virtual ~ApplicationController();
+
+    static boost::fibers::buffered_channel<testInfo> task_channel;
 
 public slots:
     void index();

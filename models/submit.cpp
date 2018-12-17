@@ -108,12 +108,12 @@ Submit &Submit::operator=(const Submit &other)
     return *this;
 }
 
-Submit Submit::create(int respCode, int errorTest, int time, int memory, int solutionId, int points)
+Submit Submit::create(int respCode, int errorTest, int t, int memory, int solutionId, int points)
 {
     SubmitObject obj;
     obj.resp_code = respCode;
     obj.error_test = errorTest;
-    obj.time = time;
+    obj.time = t;
     obj.memory = memory;
     obj.solution_id = solutionId;
     obj.points = points;

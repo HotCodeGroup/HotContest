@@ -2,7 +2,9 @@
 #include "solution.h"
 #include "solutionobject.h"
 #include "profile.h"
+#include "problem.h"
 
+const QString Solution::src_root = "/home/gdvfox/StudyMaterials/CPP_Programming/HotContestData/src/";
 
 Solution::Solution()
     : TAbstractModel(), d(new SolutionObject())
@@ -83,6 +85,24 @@ Solution &Solution::operator=(const Solution &other)
     return *this;
 }
 
+Solution Solution::create(TMultipartFormData &srcFile, int user_id, int contest_id, int problem_pos)
+{
+    SolutionObject obj;
+    QString newFileName = src_root + "code" + generateFileName() + QString::number(user_id) + ".cpp";
+    srcFile.renameUploadedFile("src", newFileName);
+
+    int saveProblemId = Problem::getWithContest(contest_id, problem_pos).problemId();
+
+    obj.src_file = newFileName;
+    obj.submit_time = QDateTime::currentDateTime();
+    obj.user_id = user_id;
+    obj.problem_id = saveProblemId;
+    if (!obj.create()) {
+        return Solution();
+    }
+    return Solution(obj);
+}
+
 Solution Solution::create(const QString &srcFile, const QDateTime &submitTime, int userId, int problemId)
 {
     SolutionObject obj;
@@ -153,6 +173,23 @@ TModelObject *Solution::modelData()
 const TModelObject *Solution::modelData() const
 {
     return d.data();
+}
+
+const QString Solution::generateFileName() {
+    qsrand(time(0));
+    QString name;
+
+    std::string chars(
+        "abcdefghijklmnopqrstuvwxyz"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "1234567890"
+        );
+
+    for(int i = 0; i < 8; ++i) {
+        name += chars[qrand() % chars.length()];
+    }
+
+    return name;
 }
 
 QDataStream &operator<<(QDataStream &ds, const Solution &model)
